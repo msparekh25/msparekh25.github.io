@@ -1,0 +1,52 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="120" y1="80" x2="1040" y2="560" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#06080D"/>
+      <stop offset="1" stop-color="#0E1526"/>
+    </linearGradient>
+    <radialGradient id="glow1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(1030 130) rotate(135) scale(380 220)">
+      <stop stop-color="#4DE2FF" stop-opacity="0.7"/>
+      <stop offset="1" stop-color="#4DE2FF" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glow2" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(220 510) rotate(20) scale(360 240)">
+      <stop stop-color="#5C8DFF" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#5C8DFF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="accent" x1="174" y1="242" x2="655" y2="484" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#4DE2FF"/>
+      <stop offset="1" stop-color="#5C8DFF"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect x="36" y="36" width="1128" height="558" rx="28" fill="rgba(19,27,42,0.72)" stroke="rgba(255,255,255,0.08)"/>
+  <rect x="36" y="36" width="1128" height="558" rx="28" fill="url(#glow1)"/>
+  <rect x="36" y="36" width="1128" height="558" rx="28" fill="url(#glow2)"/>
+  <g opacity="0.16">
+    <path d="M90 120H1110" stroke="#EAF0FF" stroke-width="1"/>
+    <path d="M90 190H1110" stroke="#EAF0FF" stroke-width="1"/>
+    <path d="M90 260H1110" stroke="#EAF0FF" stroke-width="1"/>
+    <path d="M90 330H1110" stroke="#EAF0FF" stroke-width="1"/>
+    <path d="M90 400H1110" stroke="#EAF0FF" stroke-width="1"/>
+    <path d="M90 470H1110" stroke="#EAF0FF" stroke-width="1"/>
+    <path d="M90 540H1110" stroke="#EAF0FF" stroke-width="1"/>
+    <path d="M120 90V570" stroke="#EAF0FF" stroke-width="1"/>
+    <path d="M280 90V570" stroke="#EAF0FF" stroke-width="1"/>
+    <path d="M440 90V570" stroke="#EAF0FF" stroke-width="1"/>
+    <path d="M600 90V570" stroke="#EAF0FF" stroke-width="1"/>
+    <path d="M760 90V570" stroke="#EAF0FF" stroke-width="1"/>
+    <path d="M920 90V570" stroke="#EAF0FF" stroke-width="1"/>
+    <path d="M1080 90V570" stroke="#EAF0FF" stroke-width="1"/>
+  </g>
+  <text x="96" y="185" fill="#A4B2CC" font-family="Manrope, Arial, sans-serif" font-size="28" font-weight="600" letter-spacing="2">FINANCE • FP&amp;A • ANALYTICS • AI</text>
+  <text x="96" y="306" fill="#EAF0FF" font-family="Plus Jakarta Sans, Manrope, Arial, sans-serif" font-size="78" font-weight="800">Mann Parekh</text>
+  <text x="96" y="382" fill="url(#accent)" font-family="Plus Jakarta Sans, Manrope, Arial, sans-serif" font-size="42" font-weight="700">Quantitative Finance &amp; Data Analytics Portfolio</text>
+  <text x="96" y="468" fill="#A4B2CC" font-family="Manrope, Arial, sans-serif" font-size="28" font-weight="500">Financial modeling, executive decision support, and AI-enabled analysis</text>
+  <g>
+    <rect x="96" y="508" width="198" height="58" rx="18" fill="rgba(77,226,255,0.12)" stroke="rgba(77,226,255,0.35)"/>
+    <text x="126" y="545" fill="#EAF0FF" font-family="Manrope, Arial, sans-serif" font-size="24" font-weight="700">FP&amp;A Impact</text>
+  </g>
+  <g>
+    <rect x="314" y="508" width="222" height="58" rx="18" fill="rgba(92,141,255,0.12)" stroke="rgba(92,141,255,0.35)"/>
+    <text x="348" y="545" fill="#EAF0FF" font-family="Manrope, Arial, sans-serif" font-size="24" font-weight="700">AI + Finance</text>
+  </g>
+</svg>
