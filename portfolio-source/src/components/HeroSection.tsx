@@ -15,72 +15,68 @@ export function HeroSection({
   loaded,
   reducedMotion,
   links,
-  headline: _headline,
+  headline,
   subheadline,
   intro,
 }: HeroSectionProps) {
   return (
     <header id="top" data-section className={styles.heroSection}>
-      <div className={styles.conorHeroWrap}>
-        <div className={styles.conorHeroGlow} aria-hidden="true" />
-        <div className={styles.conorHeroGrid} aria-hidden="true" />
-        <div className={cn(styles.heroSequence, (loaded || reducedMotion) && styles.heroSequenceReady)}>
-          <div className={cn(styles.conorHeroTop, styles.heroStep1)}>
-            <span className={styles.conorHeroDot} />
-            <p className={styles.conorHeroLabel}>Mann Parekh · Finance / FP&amp;A / Analytics</p>
-          </div>
-
-          <h1 className={cn(styles.conorHeroTitle, styles.heroStep2)}>
-            I build financial models, forecasting systems, and decision-ready analysis for ambitious teams.
-          </h1>
-
-          <p className={cn(styles.conorHeroBody, styles.heroStep3)}>{subheadline}</p>
-          <p className={cn(styles.conorHeroBodyMuted, styles.heroStep4)}>{intro}</p>
-
-          <div className={cn(styles.conorHeroActions, styles.heroStep5)}>
-            <a
-              className={cn(styles.button, styles.buttonPrimary)}
-              href={links.resumeUrl}
-              target="_blank"
-              rel="noreferrer"
-            >
-              View Resume
-            </a>
-            <a className={cn(styles.button, styles.buttonSecondary)} href="#projects">
-              View Work
-            </a>
-            <a className={cn(styles.button, styles.buttonGhost)} href={`mailto:${links.email}`}>
-              Contact
-            </a>
-          </div>
-
-          <div className={cn(styles.conorHeroMetaCards, styles.heroStep6)}>
-            <article className={styles.conorMetaCard}>
-              <p className={styles.conorMetaLabel}>Currently focused on</p>
-              <p className={styles.conorMetaTitle}>FP&amp;A + strategic analytics</p>
-              <p className={styles.conorMetaText}>
-                Executive dashboards, forecasting workflows, and finance-facing AI analysis.
-              </p>
-            </article>
-
-            <article className={styles.conorMetaCard}>
-              <p className={styles.conorMetaLabel}>Signals</p>
-              <ul className={styles.conorMetaList}>
-                <li>30%+ client retention support (Mirae Asset)</li>
-                <li>JPMorgan capital raise support (Healthy Amplified)</li>
-                <li>Applied Math + Economics @ UMD (GPA 3.55)</li>
-              </ul>
-            </article>
-
-            <article className={styles.conorMetaCard}>
-              <p className={styles.conorMetaLabel}>Based in</p>
-              <p className={styles.conorMetaTitle}>College Park, MD</p>
-              <p className={styles.conorMetaText}>
-                Open to finance, analytics, FP&amp;A, and AI/data roles with strong quantitative decision support.
-              </p>
-            </article>
+      <div className={styles.heroFrame}>
+        <div className={styles.heroGridAccent} aria-hidden="true" />
+        <div className={styles.heroContent}>
+          <div className={cn(styles.heroSequence, (loaded || reducedMotion) && styles.heroSequenceReady)}>
+            <p className={cn(styles.heroBadge, styles.heroStep1)}>
+              Finance • FP&amp;A • Analytics • AI
+            </p>
+            <h1 className={cn(styles.heroTitle, styles.heroStep2)}>
+              {headline.split(' and analytics, built with technical rigor.')[0]}
+              <span className={styles.heroAccent}> and analytics</span>
+              <br />
+              <span className={styles.heroMuted}>built with technical rigor.</span>
+            </h1>
+            <p className={cn(styles.heroSubheadline, styles.heroStep3)}>{subheadline}</p>
+            <p className={cn(styles.heroIntro, styles.heroStep4)}>{intro}</p>
+            <div className={cn(styles.heroCtas, styles.heroStep5)}>
+              <a
+                className={cn(styles.button, styles.buttonPrimary)}
+                href={links.resumeUrl}
+                target="_blank"
+                rel="noreferrer"
+              >
+                View Resume
+              </a>
+              <a className={cn(styles.button, styles.buttonSecondary)} href="#experience">
+                See Experience
+              </a>
+              <a className={cn(styles.button, styles.buttonGhost)} href={`mailto:${links.email}`}>
+                Email Me
+              </a>
+            </div>
+            <div className={cn(styles.heroMetaRow, styles.heroStep6)}>
+              <span>University of Maryland · Applied Mathematics + Economics</span>
+              <span className={styles.dotDivider} aria-hidden="true">
+                •
+              </span>
+              <span>Expected Spring 2027</span>
+            </div>
           </div>
         </div>
+
+        <aside className={styles.heroSidePanel}>
+          <div className={styles.sidePanelHeader}>
+            <span className={styles.sidePanelDot} />
+            Current Focus
+          </div>
+          <p className={styles.sidePanelTitle}>FP&amp;A + strategic analytics</p>
+          <p className={styles.sidePanelBody}>
+            Building financial models and executive-ready analysis while bringing AI/data workflows into practical decision support.
+          </p>
+          <ul className={styles.sidePanelList}>
+            <li>Executive dashboards for due diligence</li>
+            <li>Forecasting and retention analytics in financial services</li>
+            <li>Quantitative coursework across math, stats, and economics</li>
+          </ul>
+        </aside>
       </div>
     </header>
   )

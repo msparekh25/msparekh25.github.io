@@ -58,27 +58,16 @@ export function ProjectsSection({ projects, reducedMotion }: ProjectsSectionProp
     <section id="projects" data-section className={styles.sectionBlock}>
       <SectionHeader
         eyebrow="Featured Projects"
-        title="Selected work in a showcase-first format"
-        description="A Conor-inspired project rail with large visual previews, then expandable notes for implementation and business context."
+        title="Product and research work grounded in analytical thinking"
+        description="Expandable project cards with implementation context, transferable skills, and business relevance."
       />
 
-      <div className={styles.projectShowcaseTop}>
-        <p className={styles.projectShowcaseCaption}>Scroll / drag the showcase cards to browse projects</p>
-      </div>
-
-      <div className={styles.projectShowcaseRail} role="list" aria-label="Project showcase cards">
+      <div className={styles.projectsGrid}>
         {featuredProjects.map((project, index) => (
-          <RevealOnScroll
-            key={project.id}
-            delay={index * 70}
-            reducedMotion={reducedMotion}
-            className={styles.projectShowcaseItem}
-          >
+          <RevealOnScroll key={project.id} delay={index * 70} reducedMotion={reducedMotion}>
             <ProjectCard
               project={project}
               isSelected={selectedId === project.id}
-              displayIndex={index + 1}
-              isFeature={index === 0}
               onToggle={handleToggle}
               registerButton={registerButton}
               panelId={DETAIL_PANEL_ID}

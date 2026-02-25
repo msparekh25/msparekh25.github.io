@@ -1,5 +1,6 @@
 import type { ExperienceItem } from '../types/content'
 import styles from '../styles/Portfolio.module.css'
+import { ExperienceCard } from './ExperienceCard'
 import { RevealOnScroll } from './RevealOnScroll'
 import { SectionHeader } from './SectionHeader'
 
@@ -17,60 +18,19 @@ export function ExperienceGrid({ items, featuredOnly = false, reducedMotion }: E
     <section id="experience" data-section className={styles.sectionBlock}>
       <SectionHeader
         eyebrow="Experience Spotlight"
-        title="Experience across finance, analytics, and AI systems"
-        description="A cleaner company-by-company view inspired by editorial portfolio lists, with outcome-oriented summaries."
+        title="Finance, analytics, and AI work with business impact"
+        description="Curated roles that best represent FP&A execution, financial analytics, and data-driven decision support."
       />
 
-      <div className={styles.experienceListBoard}>
+      <div className={styles.cardGrid}>
         {featured.map((item, index) => (
           <RevealOnScroll
-            as="article"
+            as="div"
             key={item.id}
-            className={styles.experienceListRow}
             delay={index * 70}
             reducedMotion={reducedMotion}
           >
-            <div className={styles.experienceListIndex}>
-              {String(index + 1).padStart(2, '0')}
-            </div>
-            <div className={styles.experienceListPrimary}>
-              <p className={styles.experienceListOrg}>{item.organization}</p>
-              <p className={styles.experienceListRole}>{item.role}</p>
-              <p className={styles.experienceListCategory}>{item.category}</p>
-            </div>
-            <p className={styles.experienceListSummary}>{item.summary}</p>
-            <div className={styles.experienceListMeta}>
-              <span>{item.start} — {item.end}</span>
-              <span>{item.location}</span>
-            </div>
-            <div className={styles.experienceListArrow} aria-hidden="true">
-              +
-            </div>
-          </RevealOnScroll>
-        ))}
-      </div>
-
-      <div className={styles.experienceHighlightsGrid}>
-        {featured.slice(0, 2).map((item, index) => (
-          <RevealOnScroll
-            as="article"
-            key={`${item.id}-highlights`}
-            className={styles.experienceHighlightCard}
-            delay={120 + index * 60}
-            reducedMotion={reducedMotion}
-          >
-            <p className={styles.experienceHighlightLabel}>{item.organization}</p>
-            <p className={styles.experienceHighlightTitle}>{item.role}</p>
-            <ul className={styles.experienceHighlightBullets}>
-              {item.highlights.slice(0, 2).map((highlight) => (
-                <li key={highlight}>{highlight}</li>
-              ))}
-            </ul>
-            <div className={styles.experienceHighlightPills}>
-              {item.impactMetrics.slice(0, 3).map((metric) => (
-                <span key={metric}>{metric}</span>
-              ))}
-            </div>
+            <ExperienceCard item={item} />
           </RevealOnScroll>
         ))}
       </div>

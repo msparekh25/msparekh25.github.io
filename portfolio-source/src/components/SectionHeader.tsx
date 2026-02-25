@@ -9,10 +9,7 @@ interface SectionHeaderProps {
 export function SectionHeader({ eyebrow, title, description }: SectionHeaderProps) {
   return (
     <div className={styles.sectionHeader}>
-      <div className={styles.sectionHeaderTop}>
-        {eyebrow ? <p className={styles.sectionEyebrow}>{eyebrow}</p> : null}
-        <span className={styles.sectionHeaderRule} aria-hidden="true" />
-      </div>
+      {eyebrow ? <p className={styles.sectionEyebrow}>{eyebrow}</p> : null}
       <h2 className={styles.sectionTitle}>{title}</h2>
       {description ? <p className={styles.sectionDescription}>{description}</p> : null}
     </div>
