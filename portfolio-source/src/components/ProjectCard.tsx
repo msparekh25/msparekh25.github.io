@@ -5,6 +5,7 @@ import { cn } from '../utils/cn'
 interface ProjectCardProps {
   project: ProjectItem
   isSelected: boolean
+  displayIndex?: number
   isFeature?: boolean
   onToggle: (projectId: string) => void
   registerButton: (projectId: string, element: HTMLButtonElement | null) => void
@@ -20,6 +21,7 @@ const visualThemeClassMap: Record<ProjectItem['visualTheme'], string> = {
 export function ProjectCard({
   project,
   isSelected,
+  displayIndex,
   isFeature = false,
   onToggle,
   registerButton,
@@ -39,6 +41,11 @@ export function ProjectCard({
       aria-controls={panelId}
     >
       <span className={styles.projectCardChrome} aria-hidden="true" />
+      {displayIndex ? (
+        <span className={styles.projectCardIndex} aria-hidden="true">
+          {String(displayIndex).padStart(2, '0')}
+        </span>
+      ) : null}
       <span className={cn(styles.projectPreview, visualThemeClassMap[project.visualTheme])} aria-hidden="true">
         <span className={styles.projectPreviewNoise} />
         <span className={styles.projectPreviewOverlay} />

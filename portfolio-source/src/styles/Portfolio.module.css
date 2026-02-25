@@ -3345,3 +3345,1063 @@
     animation: none !important;
   }
 }
+
+/* =====================================
+   Conor Style Pass (showcase + editorial)
+   ===================================== */
+
+.mainContent {
+  width: min(100%, calc(1220px + clamp(2rem, 6vw, 5rem)));
+  padding: 0.75rem clamp(1rem, 3vw, 2.25rem) clamp(4.5rem, 7vw, 6rem);
+}
+
+.backgroundLayer {
+  background:
+    radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.02), transparent 38%),
+    radial-gradient(circle at 14% 14%, rgba(154, 199, 255, 0.05), transparent 42%),
+    radial-gradient(circle at 84% 20%, rgba(146, 236, 255, 0.04), transparent 40%),
+    linear-gradient(180deg, #060606 0%, #070707 38%, #080809 100%);
+}
+
+.noiseOverlay {
+  opacity: 0.018;
+}
+
+.gridGlow {
+  opacity: 0.025;
+  background-size: 112px 112px;
+  mask-image: radial-gradient(circle at 50% 12%, black 14%, transparent 70%);
+}
+
+.topVignette {
+  background:
+    radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.015), transparent 42%),
+    radial-gradient(circle at 50% 120%, rgba(0, 0, 0, 0.82), transparent 58%);
+}
+
+.orbOne,
+.orbTwo {
+  opacity: 0.24;
+  filter: blur(18px);
+}
+
+.orbOne {
+  width: min(34vw, 520px);
+  height: min(34vw, 520px);
+  top: -10%;
+  right: -10%;
+  background: radial-gradient(circle at 45% 45%, rgba(154, 199, 255, 0.14), rgba(154, 199, 255, 0));
+}
+
+.orbTwo {
+  width: min(32vw, 460px);
+  height: min(32vw, 460px);
+  left: -9%;
+  bottom: 12%;
+  background: radial-gradient(circle at 50% 45%, rgba(146, 236, 255, 0.12), rgba(146, 236, 255, 0));
+}
+
+.floatingNav {
+  top: 0.85rem;
+  gap: 0.65rem;
+}
+
+.floatingNav::before {
+  border-radius: 999px;
+  background: rgba(10, 10, 12, 0.5);
+  border-color: rgba(255, 255, 255, 0.03);
+  opacity: 0.72;
+  box-shadow: none;
+  backdrop-filter: blur(10px);
+}
+
+.floatingNavScrolled::before {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.008), rgba(255, 255, 255, 0)),
+    rgba(10, 10, 12, 0.82);
+  border-color: rgba(255, 255, 255, 0.07);
+}
+
+.brand {
+  font-family: 'Sora', 'Plus Jakarta Sans', 'Manrope', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(241, 241, 239, 0.92);
+}
+
+.brandDot {
+  width: 0.4rem;
+  height: 0.4rem;
+  background: rgba(241, 241, 239, 0.92);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.14);
+}
+
+.navLink {
+  font-family: 'Sora', 'Plus Jakarta Sans', 'Manrope', sans-serif;
+  font-size: 0.76rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: rgba(177, 180, 178, 0.9);
+}
+
+.navLinkActive {
+  background: rgba(255, 255, 255, 0.02);
+  border-color: rgba(255, 255, 255, 0.06);
+  box-shadow: none;
+}
+
+.navEmail {
+  border-radius: 999px;
+  font-size: 0.74rem;
+  color: rgba(177, 180, 178, 0.88);
+}
+
+.heroSection {
+  padding-top: 1.35rem;
+}
+
+.conorHeroWrap {
+  position: relative;
+  border-radius: 26px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.012), rgba(255, 255, 255, 0.004)),
+    rgba(9, 9, 11, 0.86);
+  box-shadow: 0 26px 50px rgba(0, 0, 0, 0.28);
+  overflow: hidden;
+  padding: clamp(1rem, 2vw, 1.35rem);
+}
+
+.conorHeroGlow {
+  position: absolute;
+  inset: -28% auto auto 42%;
+  width: 24rem;
+  height: 24rem;
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(165, 208, 255, 0.06), rgba(165, 208, 255, 0));
+  pointer-events: none;
+}
+
+.conorHeroGrid {
+  position: absolute;
+  inset: 0;
+  opacity: 0.035;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.7) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.7) 1px, transparent 1px);
+  background-size: 88px 88px;
+  mask-image: radial-gradient(circle at 50% 24%, black 22%, transparent 72%);
+  pointer-events: none;
+}
+
+.heroSequence > * {
+  opacity: 0;
+  transform: translateY(14px);
+}
+
+.conorHeroTop {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-bottom: 0.9rem;
+}
+
+.conorHeroDot {
+  width: 0.42rem;
+  height: 0.42rem;
+  border-radius: 999px;
+  background: rgba(241, 241, 239, 0.95);
+  box-shadow: 0 0 14px rgba(255, 255, 255, 0.2);
+}
+
+.conorHeroLabel {
+  margin: 0;
+  color: rgba(177, 180, 178, 0.88);
+  font-family: 'Sora', 'Plus Jakarta Sans', 'Manrope', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.conorHeroTitle {
+  margin: 0;
+  max-width: 22ch;
+  font-family: 'Sora', 'Plus Jakarta Sans', 'Manrope', sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  line-height: 0.95;
+  font-size: clamp(2rem, 4vw, 4.25rem);
+  color: rgba(243, 244, 241, 0.98);
+  text-wrap: balance;
+}
+
+.conorHeroBody {
+  margin-top: 0.95rem;
+  max-width: 64ch;
+  color: rgba(230, 232, 228, 0.82);
+  font-size: clamp(0.95rem, 0.95rem + 0.22vw, 1.1rem);
+  line-height: 1.55;
+}
+
+.conorHeroBodyMuted {
+  margin-top: 0.65rem;
+  max-width: 66ch;
+  color: rgba(177, 180, 178, 0.82);
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+
+.conorHeroActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  margin-top: 1rem;
+}
+
+.button {
+  min-height: 2.6rem;
+  border-radius: 14px;
+  font-family: 'Sora', 'Plus Jakarta Sans', 'Manrope', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.buttonPrimary {
+  color: #08090a;
+  background: linear-gradient(135deg, #f3f4f2, #dfe7f6);
+  border-color: rgba(255, 255, 255, 0.16);
+  box-shadow: none;
+}
+
+.buttonSecondary,
+.buttonGhost {
+  background: rgba(255, 255, 255, 0.015);
+  border-color: rgba(255, 255, 255, 0.06);
+  color: rgba(236, 238, 234, 0.9);
+}
+
+.buttonSecondary:hover,
+.buttonGhost:hover {
+  background: rgba(255, 255, 255, 0.03);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.conorHeroMetaCards {
+  margin-top: 1rem;
+  display: grid;
+  grid-template-columns: 1.15fr 1fr 1.05fr;
+  gap: 0.65rem;
+}
+
+.conorMetaCard {
+  position: relative;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.01), rgba(255, 255, 255, 0.004)),
+    rgba(255, 255, 255, 0.006);
+  padding: 0.8rem;
+  display: grid;
+  align-content: start;
+  gap: 0.38rem;
+  min-height: 8.25rem;
+}
+
+.conorMetaCard::after {
+  content: '';
+  position: absolute;
+  inset: auto -14% -55% auto;
+  width: 8.5rem;
+  height: 8.5rem;
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(146, 236, 255, 0.04), rgba(146, 236, 255, 0));
+  pointer-events: none;
+}
+
+.conorMetaLabel {
+  margin: 0;
+  color: rgba(177, 180, 178, 0.82);
+  font-family: 'Sora', 'Plus Jakarta Sans', 'Manrope', sans-serif;
+  font-size: 0.66rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.conorMetaTitle {
+  margin: 0;
+  color: rgba(243, 244, 241, 0.95);
+  font-family: 'Plus Jakarta Sans', 'Manrope', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.conorMetaText {
+  margin: 0;
+  color: rgba(177, 180, 178, 0.86);
+  font-size: 0.8rem;
+  line-height: 1.45;
+}
+
+.conorMetaList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.38rem;
+}
+
+.conorMetaList li {
+  position: relative;
+  padding-left: 0.75rem;
+  color: rgba(224, 227, 223, 0.84);
+  font-size: 0.79rem;
+  line-height: 1.38;
+}
+
+.conorMetaList li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.48rem;
+  width: 0.25rem;
+  height: 0.25rem;
+  border-radius: 999px;
+  background: rgba(243, 244, 241, 0.6);
+}
+
+.metricsSection {
+  margin-top: 1.15rem;
+}
+
+.metricsShell {
+  grid-template-columns: 0.95fr 2.05fr;
+  gap: 0.8rem;
+}
+
+.metricsLead {
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: rgba(10, 10, 12, 0.68);
+  box-shadow: none;
+  padding: 0.9rem;
+}
+
+.metricsLeadLabel {
+  color: rgba(177, 180, 178, 0.82);
+  font-family: 'Sora', 'Plus Jakarta Sans', 'Manrope', sans-serif;
+  font-size: 0.66rem;
+  font-weight: 500;
+  letter-spacing: 0.11em;
+}
+
+.metricsLeadTitle {
+  color: rgba(243, 244, 241, 0.95);
+  font-family: 'Sora', 'Plus Jakarta Sans', 'Manrope', sans-serif;
+  font-size: 1.02rem;
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+}
+
+.metricsLeadBody {
+  color: rgba(177, 180, 178, 0.78);
+  font-size: 0.78rem;
+}
+
+.metricsGrid {
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: rgba(10, 10, 12, 0.58);
+  padding: 0.35rem;
+  gap: 0.45rem;
+}
+
+.metricCard {
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  background: rgba(255, 255, 255, 0.008);
+  padding: 0.7rem;
+  gap: 0.35rem;
+}
+
+.metricLabel {
+  font-family: 'Sora', 'Plus Jakarta Sans', 'Manrope', sans-serif;
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  color: rgba(177, 180, 178, 0.84);
+}
+
+.metricValue {
+  font-family: 'Plus Jakarta Sans', 'Manrope', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: rgba(243, 244, 241, 0.95);
+}
+
+.metricDetail {
+  color: rgba(177, 180, 178, 0.76);
+  font-size: 0.72rem;
+  line-height: 1.35;
+}
+
+.sectionBlock {
+  margin-top: clamp(2.8rem, 4vw, 4.25rem);
+}
+
+.sectionHeader {
+  margin-bottom: 0.9rem;
+}
+
+.sectionHeaderTop {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.sectionHeaderRule {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0));
+}
+
+.sectionEyebrow {
+  color: rgba(177, 180, 178, 0.84);
+  font-family: 'Sora', 'Plus Jakarta Sans', 'Manrope', sans-serif;
+  font-size: 0.66rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+}
+
+.sectionTitle {
+  color: rgba(243, 244, 241, 0.97);
+  font-family: 'Sora', 'Plus Jakarta Sans', 'Manrope', sans-serif;
+  font-size: clamp(1.28rem, 1.05rem + 0.9vw, 2.2rem);
+  font-weight: 600;
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  max-width: 26ch;
+}
+
+.sectionDescription {
+  color: rgba(177, 180, 178, 0.8);
+  font-size: 0.84rem;
+  line-height: 1.45;
+  max-width: 68ch;
+}
+
+.experienceListBoard {
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.006), rgba(255, 255, 255, 0)),
+    rgba(10, 10, 12, 0.62);
+  overflow: hidden;
+}
+
+.experienceListRow {
+  display: grid;
+  grid-template-columns: 48px minmax(200px, 1.15fr) 1.55fr minmax(180px, 0.95fr) 36px;
+  gap: 0.8rem;
+  align-items: center;
+  padding: 0.8rem 0.95rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
+  background: rgba(255, 255, 255, 0.002);
+  transition: background-color 220ms ease;
+}
+
+.experienceListRow:first-child {
+  border-top: 0;
+}
+
+.experienceListRow:hover {
+  background: rgba(255, 255, 255, 0.012);
+}
+
+.experienceListIndex {
+  color: rgba(255, 255, 255, 0.22);
+  font-family: 'Sora', 'Plus Jakarta Sans', 'Manrope', sans-serif;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+}
+
+.experienceListPrimary {
+  display: grid;
+  gap: 0.1rem;
+}
+
+.experienceListOrg {
+  margin: 0;
+  color: rgba(243, 244, 241, 0.95);
+  font-family: 'Plus Jakarta Sans', 'Manrope', sans-serif;
+  font-size: 0.94rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.experienceListRole {
+  margin: 0;
+  color: rgba(224, 227, 223, 0.84);
+  font-size: 0.78rem;
+  line-height: 1.35;
+}
+
+.experienceListCategory {
+  margin: 0;
+  color: rgba(177, 180, 178, 0.7);
+  font-family: 'Sora', 'Plus Jakarta Sans', 'Manrope', sans-serif;
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.experienceListSummary {
+  margin: 0;
+  color: rgba(177, 180, 178, 0.84);
+  font-size: 0.78rem;
+  line-height: 1.45;
+}
+
+.experienceListMeta {
+  display: grid;
+  gap: 0.15rem;
+  justify-items: end;
+  color: rgba(177, 180, 178, 0.78);
+  font-size: 0.74rem;
+  text-align: right;
+}
+
+.experienceListArrow {
+  width: 1.7rem;
+  height: 1.7rem;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  color: rgba(243, 244, 241, 0.8);
+  background: rgba(255, 255, 255, 0.01);
+  font-size: 0.9rem;
+  line-height: 1;
+}
+
+.experienceHighlightsGrid {
+  margin-top: 0.75rem;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.experienceHighlightCard {
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: rgba(10, 10, 12, 0.62);
+  padding: 0.9rem;
+  display: grid;
+  gap: 0.45rem;
+}
+
+.experienceHighlightLabel {
+  margin: 0;
+  color: rgba(177, 180, 178, 0.82);
+  font-family: 'Sora', 'Plus Jakarta Sans', 'Manrope', sans-serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.experienceHighlightTitle {
+  margin: 0;
+  color: rgba(243, 244, 241, 0.95);
+  font-family: 'Plus Jakarta Sans', 'Manrope', sans-serif;
+  font-size: 0.92rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.experienceHighlightBullets {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.35rem;
+}
+
+.experienceHighlightBullets li {
+  position: relative;
+  padding-left: 0.7rem;
+  color: rgba(177, 180, 178, 0.83);
+  font-size: 0.76rem;
+  line-height: 1.4;
+}
+
+.experienceHighlightBullets li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.45rem;
+  width: 0.22rem;
+  height: 0.22rem;
+  border-radius: 999px;
+  background: rgba(243, 244, 241, 0.62);
+}
+
+.experienceHighlightPills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.experienceHighlightPills span {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.24rem 0.42rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  color: rgba(224, 227, 223, 0.82);
+  font-size: 0.66rem;
+  background: rgba(255, 255, 255, 0.008);
+}
+
+.projectShowcaseTop {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 0.45rem;
+}
+
+.projectShowcaseCaption {
+  margin: 0;
+  color: rgba(177, 180, 178, 0.74);
+  font-family: 'Sora', 'Plus Jakarta Sans', 'Manrope', sans-serif;
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.projectShowcaseRail {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(340px, 1fr);
+  gap: 0.85rem;
+  overflow-x: auto;
+  padding-bottom: 0.4rem;
+  scroll-snap-type: x proximity;
+  scrollbar-width: thin;
+}
+
+.projectShowcaseRail::-webkit-scrollbar {
+  height: 8px;
+}
+
+.projectShowcaseRail::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 999px;
+}
+
+.projectShowcaseRail::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
+}
+
+.projectShowcaseItem {
+  scroll-snap-align: start;
+}
+
+.projectCardButton {
+  min-height: 100%;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.01), rgba(255, 255, 255, 0.003)),
+    rgba(10, 10, 12, 0.78);
+  box-shadow: none;
+  padding: 0.8rem;
+  gap: 0.42rem;
+}
+
+.projectCardButton:hover {
+  transform: translateY(-3px);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.projectCardButtonFeature {
+  grid-template-columns: 1fr;
+}
+
+.projectCardChrome {
+  opacity: 0.4;
+}
+
+.projectCardIndex {
+  position: absolute;
+  top: 0.7rem;
+  right: 0.75rem;
+  z-index: 2;
+  color: rgba(255, 255, 255, 0.2);
+  font-family: 'Sora', 'Plus Jakarta Sans', 'Manrope', sans-serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+}
+
+.projectPreview {
+  min-height: 12rem;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.012);
+}
+
+.projectCardButtonFeature .projectPreview {
+  min-height: 12.75rem;
+}
+
+.projectPreview::before {
+  opacity: 0.1;
+  background-size: 48px 48px;
+}
+
+.projectPreviewOverlay {
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0.52));
+}
+
+.projectPreviewContent {
+  padding: 0.8rem;
+}
+
+.projectPreviewKicker {
+  color: rgba(177, 180, 178, 0.82);
+  font-family: 'Sora', 'Plus Jakarta Sans', 'Manrope', sans-serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+}
+
+.projectPreviewTitle {
+  color: rgba(243, 244, 241, 0.96);
+  font-family: 'Sora', 'Plus Jakarta Sans', 'Manrope', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+.projectCardButtonFeature .projectPreviewTitle {
+  font-size: 1rem;
+}
+
+.projectPreviewStat {
+  background: rgba(0, 0, 0, 0.18);
+  border-color: rgba(255, 255, 255, 0.08);
+  color: rgba(233, 235, 231, 0.88);
+  font-size: 0.62rem;
+}
+
+.projectRole {
+  font-family: 'Sora', 'Plus Jakarta Sans', 'Manrope', sans-serif;
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  color: rgba(177, 180, 178, 0.82);
+}
+
+.projectTitle {
+  color: rgba(243, 244, 241, 0.95);
+  font-family: 'Plus Jakarta Sans', 'Manrope', sans-serif;
+  font-size: 0.98rem;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.projectCardButtonFeature .projectTitle {
+  font-size: 0.98rem;
+}
+
+.projectPeriod {
+  color: rgba(177, 180, 178, 0.74);
+  font-size: 0.72rem;
+}
+
+.projectSummary {
+  color: rgba(177, 180, 178, 0.84);
+  font-size: 0.75rem;
+  line-height: 1.42;
+  -webkit-line-clamp: 2;
+}
+
+.projectBusiness {
+  display: grid;
+  gap: 0.15rem;
+  border-top-color: rgba(255, 255, 255, 0.035);
+}
+
+.projectBusinessLabel {
+  font-family: 'Sora', 'Plus Jakarta Sans', 'Manrope', sans-serif;
+  color: rgba(177, 180, 178, 0.75);
+  font-size: 0.56rem;
+  letter-spacing: 0.12em;
+}
+
+.projectBusinessText {
+  color: rgba(224, 227, 223, 0.86);
+  font-size: 0.71rem;
+  line-height: 1.38;
+  -webkit-line-clamp: 2;
+}
+
+.projectTechPill {
+  border-color: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.008);
+  color: rgba(224, 227, 223, 0.82);
+  font-size: 0.58rem;
+}
+
+.projectActionRow {
+  font-family: 'Sora', 'Plus Jakarta Sans', 'Manrope', sans-serif;
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(233, 235, 231, 0.84);
+}
+
+.projectChevron {
+  width: 1.35rem;
+  height: 1.35rem;
+  background: rgba(255, 255, 255, 0.014);
+  color: rgba(233, 235, 231, 0.76);
+}
+
+.projectDetailPanel {
+  margin-top: 0.8rem;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.008), rgba(255, 255, 255, 0.002)),
+    rgba(10, 10, 12, 0.76);
+  box-shadow: none;
+  padding: 0.95rem;
+}
+
+.projectDetailPanelOpen {
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.projectDetailEyebrow,
+.projectDetailSubhead {
+  font-family: 'Sora', 'Plus Jakarta Sans', 'Manrope', sans-serif;
+  color: rgba(177, 180, 178, 0.86);
+  font-size: 0.64rem;
+  font-weight: 500;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+}
+
+.projectDetailTitle {
+  font-family: 'Plus Jakarta Sans', 'Manrope', sans-serif;
+  color: rgba(243, 244, 241, 0.96);
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.projectDetailText,
+.projectDetailPeriod,
+.projectDetailBlock .bulletList li {
+  color: rgba(177, 180, 178, 0.84);
+}
+
+.projectDetailClose {
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.012);
+  font-family: 'Sora', 'Plus Jakarta Sans', 'Manrope', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.skillClusterGrid,
+.educationLayout,
+.resumePanelLayout {
+  gap: 0.8rem;
+}
+
+.skillClusterCard,
+.workingStyleCard,
+.educationCard,
+.courseworkCard,
+.resumePanel,
+.contactPanel,
+.additionalExperienceDetails {
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: rgba(10, 10, 12, 0.62);
+  box-shadow: none;
+}
+
+.skillClusterTitle,
+.educationSchool,
+.resumePanelTitle,
+.contactPanelHeading,
+.additionalRole {
+  font-family: 'Plus Jakarta Sans', 'Manrope', sans-serif;
+  color: rgba(243, 244, 241, 0.95);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.skillList li,
+.workingStyleText,
+.educationDegree,
+.educationMetaRow,
+.educationHonorsList li,
+.courseworkList li,
+.resumeHighlightsList li,
+.contactPanelBody,
+.contactValue,
+.contactValueLink,
+.footerLine,
+.additionalOrg,
+.additionalDates {
+  color: rgba(177, 180, 178, 0.84);
+}
+
+.skillList li::before,
+.educationHonorsList li::before,
+.courseworkList li::before,
+.resumeHighlightsList li::before {
+  background: rgba(243, 244, 241, 0.58);
+}
+
+.workingStyleLabel,
+.resumePanelLabel,
+.contactLabel,
+.sectionEyebrow,
+.additionalExperienceSummary,
+.courseworkHeading {
+  font-family: 'Sora', 'Plus Jakarta Sans', 'Manrope', sans-serif;
+}
+
+.footerName {
+  font-family: 'Plus Jakarta Sans', 'Manrope', sans-serif;
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: rgba(243, 244, 241, 0.95);
+}
+
+@media (max-width: 1200px) {
+  .conorHeroMetaCards {
+    grid-template-columns: 1fr;
+  }
+
+  .metricsShell {
+    grid-template-columns: 1fr;
+  }
+
+  .metricsGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .experienceListRow {
+    grid-template-columns: 42px 1fr;
+    gap: 0.55rem 0.75rem;
+    align-items: start;
+  }
+
+  .experienceListPrimary {
+    grid-column: 2;
+  }
+
+  .experienceListSummary {
+    grid-column: 2;
+  }
+
+  .experienceListMeta {
+    grid-column: 2;
+    justify-items: start;
+    text-align: left;
+  }
+
+  .experienceListArrow {
+    display: none;
+  }
+}
+
+@media (max-width: 900px) {
+  .projectShowcaseRail {
+    grid-auto-columns: minmax(280px, 86vw);
+  }
+
+  .experienceHighlightsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .metricsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .sectionTitle {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 720px) {
+  .conorHeroWrap {
+    border-radius: 18px;
+    padding: 0.85rem;
+  }
+
+  .conorHeroTitle {
+    font-size: clamp(1.5rem, 8.5vw, 2.3rem);
+    max-width: 100%;
+  }
+
+  .conorHeroLabel {
+    font-size: 0.64rem;
+  }
+
+  .conorHeroBody,
+  .conorHeroBodyMuted {
+    font-size: 0.82rem;
+  }
+
+  .conorHeroActions {
+    gap: 0.45rem;
+  }
+
+  .button {
+    min-height: 2.35rem;
+    font-size: 0.7rem;
+    padding-inline: 0.7rem;
+  }
+
+  .conorMetaCard {
+    min-height: auto;
+    padding: 0.7rem;
+  }
+
+  .experienceListBoard,
+  .projectDetailPanel,
+  .skillClusterCard,
+  .workingStyleCard,
+  .educationCard,
+  .courseworkCard,
+  .resumePanel,
+  .contactPanel,
+  .additionalExperienceDetails {
+    border-radius: 14px;
+  }
+
+  .projectPreview {
+    min-height: 10rem;
+  }
+
+  .projectCardButtonFeature .projectPreview {
+    min-height: 10rem;
+  }
+}
