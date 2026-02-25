@@ -209,6 +209,10 @@ export const projects: ProjectItem[] = [
     title: 'Tailored — Thrifting App',
     role: 'Application Developer',
     period: 'Apr 2024 — May 2025',
+    previewKicker: 'Recommendation Pipeline',
+    previewTitle: 'Personalized thrift discovery app',
+    previewStats: ['App Store launch', 'Scraping + ML'],
+    visualTheme: 'tailored',
     summary:
       'Created and launched Tailored on the App Store with personalized recommendations powered by web scraping and machine learning.',
     businessRelevance:
@@ -250,6 +254,10 @@ export const projects: ProjectItem[] = [
     title: 'AI-Based Object Detection System',
     role: 'AI for Accessibility Project',
     period: 'Aug 2021 — May 2022',
+    previewKicker: 'Assistive ML System',
+    previewTitle: 'Sensor-informed obstacle detection concept',
+    previewStats: ['Prototype build', 'User-centered'],
+    visualTheme: 'accessibility',
     summary:
       'Developed AI/ML prototypes for object and shape detection and built a cane-sensor-assisted obstacle detection concept for visually impaired users.',
     businessRelevance:
@@ -290,6 +298,10 @@ export const projects: ProjectItem[] = [
     title: 'Blockchain Research Publication',
     role: 'NHSJS Researcher',
     period: 'May 2022 — Sep 2022',
+    previewKicker: 'Research & Comparative Analysis',
+    previewTitle: 'Platform risks, performance, and adoption economics',
+    previewStats: ['Published work', 'Tech + economics'],
+    visualTheme: 'research',
     summary:
       'Published “Blockchain: Opportunities, Risks, and Applications,” evaluating platform performance, security tradeoffs, and adoption economics.',
     businessRelevance:

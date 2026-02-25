@@ -58,16 +58,22 @@ export function ProjectsSection({ projects, reducedMotion }: ProjectsSectionProp
     <section id="projects" data-section className={styles.sectionBlock}>
       <SectionHeader
         eyebrow="Featured Projects"
-        title="Product and research work grounded in analytical thinking"
-        description="Expandable project cards with implementation context, transferable skills, and business relevance."
+        title="Selected work, presented visually and backed by analytical depth"
+        description="A Daniel-style tile grid for quick scanning, paired with DotConor-style expandable detail panels for context and outcomes."
       />
 
       <div className={styles.projectsGrid}>
         {featuredProjects.map((project, index) => (
-          <RevealOnScroll key={project.id} delay={index * 70} reducedMotion={reducedMotion}>
+          <RevealOnScroll
+            key={project.id}
+            delay={index * 70}
+            reducedMotion={reducedMotion}
+            className={index === 0 ? styles.projectGridFeature : undefined}
+          >
             <ProjectCard
               project={project}
               isSelected={selectedId === project.id}
+              isFeature={index === 0}
               onToggle={handleToggle}
               registerButton={registerButton}
               panelId={DETAIL_PANEL_ID}

@@ -22,6 +22,9 @@ export function HeroSection({
   return (
     <header id="top" data-section className={styles.heroSection}>
       <div className={styles.heroFrame}>
+        <div className={styles.heroWatermark} aria-hidden="true">
+          MANN PAREKH
+        </div>
         <div className={styles.heroGridAccent} aria-hidden="true" />
         <div className={styles.heroContent}>
           <div className={cn(styles.heroSequence, (loaded || reducedMotion) && styles.heroSequenceReady)}>
@@ -63,9 +66,22 @@ export function HeroSection({
         </div>
 
         <aside className={styles.heroSidePanel}>
+          <div className={styles.heroSidePanelGlow} aria-hidden="true" />
           <div className={styles.sidePanelHeader}>
             <span className={styles.sidePanelDot} />
             Current Focus
+          </div>
+          <div className={styles.heroMiniRail} aria-hidden="true">
+            <div className={cn(styles.heroMiniCard, styles.heroMiniCardPrimary)}>
+              <p className={styles.heroMiniCardLabel}>Capital Strategy</p>
+              <p className={styles.heroMiniCardValue}>FP&amp;A</p>
+              <p className={styles.heroMiniCardNote}>Executive dashboards / diligence support</p>
+            </div>
+            <div className={cn(styles.heroMiniCard, styles.heroMiniCardSecondary)}>
+              <p className={styles.heroMiniCardLabel}>Analytics Layer</p>
+              <p className={styles.heroMiniCardValue}>Forecasting + AI</p>
+              <p className={styles.heroMiniCardNote}>Retention models / evaluation workflows</p>
+            </div>
           </div>
           <p className={styles.sidePanelTitle}>FP&amp;A + strategic analytics</p>
           <p className={styles.sidePanelBody}>
@@ -76,6 +92,10 @@ export function HeroSection({
             <li>Forecasting and retention analytics in financial services</li>
             <li>Quantitative coursework across math, stats, and economics</li>
           </ul>
+          <div className={styles.heroSignalLine}>
+            <span className={styles.heroSignalLabel}>Selected themes</span>
+            <span className={styles.heroSignalValue}>FP&amp;A · Forecasting · AI Evaluation · Research Analytics</span>
+          </div>
         </aside>
       </div>
     </header>

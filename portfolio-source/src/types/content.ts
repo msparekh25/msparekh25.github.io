@@ -34,11 +34,17 @@ export interface ProjectLink {
   href: string
 }
 
+export type ProjectVisualTheme = 'tailored' | 'accessibility' | 'research'
+
 export interface ProjectItem {
   id: string
   title: string
   role: string
   period: string
+  previewKicker: string
+  previewTitle: string
+  previewStats: string[]
+  visualTheme: ProjectVisualTheme
   summary: string
   businessRelevance: string
   tech: string[]
