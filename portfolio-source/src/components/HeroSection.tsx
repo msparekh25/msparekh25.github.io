@@ -15,7 +15,7 @@ export function HeroSection({
   loaded,
   reducedMotion,
   links,
-  headline,
+  headline: _headline,
   subheadline,
   intro,
 }: HeroSectionProps) {
@@ -32,13 +32,17 @@ export function HeroSection({
               Finance • FP&amp;A • Analytics • AI
             </p>
             <h1 className={cn(styles.heroTitle, styles.heroStep2)}>
-              {headline.split(' and analytics, built with technical rigor.')[0]}
-              <span className={styles.heroAccent}> and analytics</span>
-              <br />
-              <span className={styles.heroMuted}>built with technical rigor.</span>
+              <span className={styles.heroTitleLine}>Finance systems,</span>
+              <span className={styles.heroTitleLine}>
+                <span className={styles.heroAccent}>analytics</span> &amp; strategy
+              </span>
+              <span className={styles.heroTitleLineSub}>for high-stakes decisions.</span>
             </h1>
             <p className={cn(styles.heroSubheadline, styles.heroStep3)}>{subheadline}</p>
             <p className={cn(styles.heroIntro, styles.heroStep4)}>{intro}</p>
+            <p className={cn(styles.heroQuietNote, styles.heroStep4)}>
+              Built for finance, FP&amp;A, and analytics recruiting conversations.
+            </p>
             <div className={cn(styles.heroCtas, styles.heroStep5)}>
               <a
                 className={cn(styles.button, styles.buttonPrimary)}
@@ -61,6 +65,10 @@ export function HeroSection({
                 •
               </span>
               <span>Expected Spring 2027</span>
+            </div>
+            <div className={cn(styles.heroScrollHint, styles.heroStep6)} aria-hidden="true">
+              <span className={styles.heroScrollDot} />
+              Selected work below
             </div>
           </div>
         </div>
