@@ -28,6 +28,7 @@ type ShowcaseCard = {
   detailTitle: string
   detailBody: string
   visualTheme: 'violet' | 'blue' | 'teal' | 'plum' | 'slate' | 'indigo'
+  sortTime: number
 }
 
 const navItems: Array<{ id: SectionKey; label: string }> = [
@@ -68,6 +69,7 @@ function App() {
       detailTitle: project.detailSections[0]?.title ?? 'Project Notes',
       detailBody: project.businessRelevance,
       visualTheme: (['violet', 'blue', 'teal'] as const)[index % 3],
+      sortTime: monthYearToTimestamp(getPeriodEndLabel(project.period)),
     }))
 
     const experienceCards = featuredExperience.slice(0, 3).map((item, index) => ({
@@ -82,9 +84,10 @@ function App() {
       detailTitle: item.category,
       detailBody: item.impactMetrics.join(' • '),
       visualTheme: (['plum', 'slate', 'indigo'] as const)[index % 3],
+      sortTime: monthYearToTimestamp(item.end),
     }))
 
-    return [...projectCards, ...experienceCards]
+    return [...projectCards, ...experienceCards].sort((a, b) => b.sortTime - a.sortTime)
   }, [])
 
   const selectedCard = showcaseCards.find((card) => card.id === selectedCardId) ?? showcaseCards[0]
@@ -236,8 +239,8 @@ function App() {
 
               <div className={cn(styles.heroTextWrap, loaded && styles.heroTextWrapReady)}>
                 <div className={styles.heroName}>
-                  <h1>mann</h1>
-                  <h1 className={styles.heroLastName}>parekh</h1>
+                  <h1>Mann</h1>
+                  <h1 className={styles.heroLastName}>Parekh</h1>
                 </div>
                 <p className={styles.heroIntro}>
                   Hi! I&apos;m <span>Mann</span>, a finance and analytics builder focused on FP&amp;A, quantitative modeling,
@@ -715,6 +718,42 @@ function getEasternTime() {
 function extractYear(period: string) {
   const years = period.match(/20\d{2}/g)
   return years?.at(-1) ?? period
+}
+
+function getPeriodEndLabel(period: string) {
+  const segments = period.split(/[—–]/).map((segment) => segment.trim()).filter(Boolean)
+  return segments.at(-1) ?? period
+}
+
+function monthYearToTimestamp(label: string) {
+  const normalized = label.replace(/,/g, '').trim()
+  const monthMap: Record<string, number> = {
+    jan: 0,
+    feb: 1,
+    mar: 2,
+    apr: 3,
+    may: 4,
+    jun: 5,
+    jul: 6,
+    aug: 7,
+    sep: 8,
+    oct: 9,
+    nov: 10,
+    dec: 11,
+  }
+
+  if (/present/i.test(normalized)) {
+    return Number.MAX_SAFE_INTEGER
+  }
+
+  const parts = normalized.split(/\s+/)
+  const monthKey = parts[0]?.slice(0, 3).toLowerCase()
+  const month = monthKey in monthMap ? monthMap[monthKey] : 0
+  const yearMatch = normalized.match(/20\d{2}/)
+  const year = yearMatch ? Number(yearMatch[0]) : 0
+
+  if (!year) return 0
+  return new Date(year, month, 1).getTime()
 }
 
 function capitalize(value: string) {
