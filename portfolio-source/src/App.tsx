@@ -44,6 +44,7 @@ function App() {
   const [activeSection, setActiveSection] = useState<SectionKey>('intro')
   const [selectedCardId, setSelectedCardId] = useState('')
   const [clockText, setClockText] = useState(() => getEasternTime())
+  const [heroFadeProgress, setHeroFadeProgress] = useState(0)
 
   const sectionRefs = useRef<Record<SectionKey, HTMLElement | null>>({
     intro: null,
@@ -144,6 +145,41 @@ function App() {
   }, [])
 
   useEffect(() => {
+    if (reducedMotion) {
+      setHeroFadeProgress(0)
+      return
+    }
+
+    let ticking = false
+
+    const update = () => {
+      ticking = false
+      const introSection = sectionRefs.current.intro
+      const fadeDistance = introSection
+        ? Math.max(Math.min(introSection.offsetHeight * 0.6, 340), 180)
+        : Math.max(Math.min(window.innerHeight * 0.35, 340), 180)
+      const progress = clamp(window.scrollY / fadeDistance, 0, 1)
+
+      setHeroFadeProgress((prev) => (Math.abs(prev - progress) > 0.004 ? progress : prev))
+    }
+
+    const onScrollOrResize = () => {
+      if (ticking) return
+      ticking = true
+      window.requestAnimationFrame(update)
+    }
+
+    update()
+    window.addEventListener('scroll', onScrollOrResize, { passive: true })
+    window.addEventListener('resize', onScrollOrResize)
+
+    return () => {
+      window.removeEventListener('scroll', onScrollOrResize)
+      window.removeEventListener('resize', onScrollOrResize)
+    }
+  }, [reducedMotion])
+
+  useEffect(() => {
     const nodes = Array.from(document.querySelectorAll<HTMLElement>('[data-reveal]'))
     if (!nodes.length) return
 
@@ -199,6 +235,14 @@ function App() {
   const revealDelay = (index: number): CSSProperties =>
     ({ ['--reveal-delay' as string]: `${index * 80}ms` }) as CSSProperties
 
+  const heroContentOpacity = reducedMotion ? 1 : clamp(1 - heroFadeProgress * 1.2, 0, 1)
+  const heroContentShift = reducedMotion ? 0 : -Math.round(heroFadeProgress * 22)
+  const heroContentStyle = {
+    opacity: heroContentOpacity,
+    transform: `translate3d(0, ${heroContentShift}px, 0)`,
+    pointerEvents: heroContentOpacity < 0.08 ? 'none' : 'auto',
+  } satisfies CSSProperties
+
   const financeSkills = skillGroups.find((group) => group.id === 'finance')?.items ?? []
   const dataSkills = skillGroups.find((group) => group.id === 'data-ai')?.items ?? []
   const toolSkills = skillGroups.find((group) => group.id === 'engineering-tools')?.items ?? []
@@ -238,27 +282,29 @@ function App() {
               </header>
 
               <div className={cn(styles.heroTextWrap, loaded && styles.heroTextWrapReady)}>
-                <div className={styles.heroName}>
-                  <h1>Mann</h1>
-                  <h1 className={styles.heroLastName}>Parekh</h1>
-                </div>
-                <p className={styles.heroIntro}>
-                  Hi! I&apos;m <span>Mann</span>, a finance and analytics builder focused on FP&amp;A, quantitative modeling,
-                  and decision support. Currently studying at <span>University of Maryland</span> with experience across
-                  finance, AI, and research systems.
-                </p>
-                <div className={styles.heroLinks}>
-                  <a href={links.resumeUrl} target="_blank" rel="noreferrer" className={styles.textLink}>
-                    Resume
-                  </a>
-                  <a href={`mailto:${links.email}`} className={styles.textLink}>
-                    Email
-                  </a>
-                  {links.githubUrl ? (
-                    <a href={links.githubUrl} target="_blank" rel="noreferrer" className={styles.textLink}>
-                      GitHub
+                <div className={styles.heroTextContent} style={heroContentStyle}>
+                  <div className={styles.heroName}>
+                    <h1>Mann</h1>
+                    <h1 className={styles.heroLastName}>Parekh</h1>
+                  </div>
+                  <p className={styles.heroIntro}>
+                    Hi! I&apos;m <span>Mann</span>, a finance and analytics builder focused on FP&amp;A, quantitative
+                    modeling, and decision support. Currently studying at <span>University of Maryland</span> with
+                    experience across finance, AI, and research systems.
+                  </p>
+                  <div className={styles.heroLinks}>
+                    <a href={links.resumeUrl} target="_blank" rel="noreferrer" className={styles.textLink}>
+                      Resume
                     </a>
-                  ) : null}
+                    <a href={`mailto:${links.email}`} className={styles.textLink}>
+                      Email
+                    </a>
+                    {links.githubUrl ? (
+                      <a href={links.githubUrl} target="_blank" rel="noreferrer" className={styles.textLink}>
+                        GitHub
+                      </a>
+                    ) : null}
+                  </div>
                 </div>
               </div>
             </div>
@@ -754,6 +800,10 @@ function monthYearToTimestamp(label: string) {
 
   if (!year) return 0
   return new Date(year, month, 1).getTime()
+}
+
+function clamp(value: number, min: number, max: number) {
+  return Math.min(max, Math.max(min, value))
 }
 
 function capitalize(value: string) {

@@ -211,6 +211,14 @@
   animation-play-state: running;
 }
 
+.heroTextContent {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  will-change: opacity, transform;
+  transition: opacity 80ms linear, transform 120ms linear;
+}
+
 .heroName {
   display: flex;
   flex-wrap: wrap;
