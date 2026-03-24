@@ -1,4 +1,14 @@
-import { type CSSProperties, type ReactNode, useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useState, type ReactNode } from 'react'
+import {
+  ChevronDown,
+  ChevronRight,
+  Crosshair,
+  FileText,
+  Mail,
+  MapPin,
+} from 'lucide-react'
+import { HlsVideo } from './components/hls-video'
+import { Button } from './components/ui/button'
 import {
   education,
   experience,
@@ -11,91 +21,160 @@ import {
   workingStyle,
 } from './data/portfolio'
 import { useReducedMotionPreference } from './hooks/useReducedMotionPreference'
-import { cn } from './utils/cn'
-import styles from './styles/JoshwPortfolio.module.css'
+import { cn } from './lib/utils'
 
-type SectionKey = 'intro' | 'work' | 'experience' | 'toolkit' | 'contact'
-
-type ShowcaseCard = {
+type WorkShowcaseItem = {
   id: string
   kind: 'Project' | 'Experience'
   title: string
-  subtitle: string
-  description: string
+  eyebrow: string
+  summary: string
   period: string
+  statValue: string
+  statLabel: string
   tags: string[]
-  highlights: string[]
-  detailTitle: string
-  detailBody: string
-  visualTheme: 'violet' | 'blue' | 'teal' | 'plum' | 'slate' | 'indigo'
-  sortTime: number
+  sortKey: number
 }
 
-const navItems: Array<{ id: SectionKey; label: string }> = [
-  { id: 'work', label: 'Work' },
-  { id: 'experience', label: 'Experience' },
-  { id: 'toolkit', label: 'Toolkit' },
-  { id: 'contact', label: 'Contact' },
+type SnapshotItem = {
+  id: string
+  summary: string
+  name: string
+  role: string
+  initials: string
+}
+
+type StorySectionProps = {
+  id?: string
+  badgeLead: string
+  badgeTail: string
+  title: ReactNode
+  body: string
+  bullets?: string[]
+  stats?: Array<{ value: string; label: string }>
+  primaryAction: {
+    label: string
+    href: string
+    icon: ReactNode
+    external?: boolean
+  }
+  secondaryAction?: {
+    label: string
+    href: string
+    icon: ReactNode
+    external?: boolean
+  }
+  videoSrc: string
+  mediaRight?: boolean
+}
+
+const heroVideoSrc =
+  'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260309_042944_4a2205b7-b061-490a-852b-92d9e9955ce9.mp4'
+const featuresVideoSrc =
+  'https://stream.mux.com/Jwr2RhmsNrd6GEspBNgm02vJsRZAGlaoQIh4AucGdASw.m3u8'
+const routingVideoSrc =
+  'https://stream.mux.com/1CCfG6mPC7LbMOAs6iBOfPeNd3WaKlZuHuKHp00G62j8.m3u8'
+const studioVideoSrc =
+  'https://stream.mux.com/f0001qPDy00mvqP023lqK3lWx31uHvxirFCHK1yNLczzqxY.m3u8'
+const numbersVideoSrc =
+  'https://stream.mux.com/Kec29dVyJgiPdtWaQtPuEiiGHkJIYQAVUJcNiIHUYeo.m3u8'
+const footerVideoSrc =
+  'https://stream.mux.com/tLkHO1qZoaaQOUeVWo8hEBeGQfySP02EPS02BmnNFyXys.m3u8'
+
+const navLinks = [
+  { label: 'Work', href: '#work', withChevron: true },
+  { label: 'Experience', href: '#experience' },
+  { label: 'Results', href: '#results' },
+  { label: 'Contact', href: '#contact' },
 ]
+
+const workStats: Record<string, { value: string; label: string }> = {
+  'healthy-amplified': { value: 'JPMorgan', label: 'capital raise support' },
+  'handshake-ai': { value: 'LLM QA', label: 'evaluation systems' },
+  'umd-research': { value: 'FIRE', label: 'faculty-led research' },
+  'mirae-asset': { value: '30%+', label: 'retention support' },
+  tailored: { value: 'App Store', label: 'launched product' },
+  'object-detection-accessibility': { value: 'AI + Sensors', label: 'assistive prototype' },
+  'blockchain-publication': { value: 'NHSJS', label: 'published research' },
+}
 
 function App() {
   const reducedMotion = useReducedMotionPreference()
   const [loaded, setLoaded] = useState(false)
-  const [activeSection, setActiveSection] = useState<SectionKey>('intro')
-  const [selectedCardId, setSelectedCardId] = useState('')
-  const [clockText, setClockText] = useState(() => getEasternTime())
-  const [heroFadeProgress, setHeroFadeProgress] = useState(0)
 
-  const sectionRefs = useRef<Record<SectionKey, HTMLElement | null>>({
-    intro: null,
-    work: null,
-    experience: null,
-    toolkit: null,
-    contact: null,
-  })
+  const healthyAmplified = experience.find((item) => item.id === 'healthy-amplified')
+  const handshakeAi = experience.find((item) => item.id === 'handshake-ai')
+  const umdResearch = experience.find((item) => item.id === 'umd-research')
+  const miraeAsset = experience.find((item) => item.id === 'mirae-asset')
+  const tailored = projects.find((item) => item.id === 'tailored')
 
-  const showcaseCards = useMemo<ShowcaseCard[]>(() => {
-    const featuredProjects = projects.filter((project) => project.featured)
-    const featuredExperience = experience.filter((item) => item.featured)
+  const featuredWork = useMemo<WorkShowcaseItem[]>(() => {
+    const experienceWork = experience
+      .filter((item) => item.featured)
+      .map((item) => ({
+        id: item.id,
+        kind: 'Experience' as const,
+        title: item.organization,
+        eyebrow: item.role,
+        summary: item.summary,
+        period: `${item.start} — ${item.end}`,
+        statValue: workStats[item.id]?.value ?? item.end,
+        statLabel: workStats[item.id]?.label ?? item.category,
+        tags: item.tags.slice(0, 3),
+        sortKey: monthLabelToTimestamp(item.end),
+      }))
 
-    const projectCards = featuredProjects.slice(0, 3).map((project, index) => ({
-      id: `project-${project.id}`,
-      kind: 'Project' as const,
-      title: project.title,
-      subtitle: project.role,
-      description: project.summary,
-      period: project.period,
-      tags: project.tech.slice(0, 4),
-      highlights: project.highlights,
-      detailTitle: project.detailSections[0]?.title ?? 'Project Notes',
-      detailBody: project.businessRelevance,
-      visualTheme: (['violet', 'blue', 'teal'] as const)[index % 3],
-      sortTime: monthYearToTimestamp(getPeriodEndLabel(project.period)),
-    }))
+    const projectWork = projects
+      .filter((item) => item.featured)
+      .map((item) => ({
+        id: item.id,
+        kind: 'Project' as const,
+        title: item.title,
+        eyebrow: item.role,
+        summary: item.summary,
+        period: item.period,
+        statValue: workStats[item.id]?.value ?? 'Featured',
+        statLabel: workStats[item.id]?.label ?? 'selected work',
+        tags: item.tech.slice(0, 3),
+        sortKey: monthLabelToTimestamp(getPeriodEndLabel(item.period)),
+      }))
 
-    const experienceCards = featuredExperience.slice(0, 3).map((item, index) => ({
-      id: `exp-${item.id}`,
-      kind: 'Experience' as const,
-      title: item.organization,
-      subtitle: item.role,
-      description: item.summary,
-      period: `${item.start} — ${item.end}`,
-      tags: item.tags.slice(0, 4),
-      highlights: item.highlights,
-      detailTitle: item.category,
-      detailBody: item.impactMetrics.join(' • '),
-      visualTheme: (['plum', 'slate', 'indigo'] as const)[index % 3],
-      sortTime: monthYearToTimestamp(item.end),
-    }))
-
-    return [...projectCards, ...experienceCards].sort((a, b) => b.sortTime - a.sortTime)
+    return [...experienceWork, ...projectWork]
+      .sort((left, right) => right.sortKey - left.sortKey)
+      .slice(0, 3)
   }, [])
 
-  const selectedCard = showcaseCards.find((card) => card.id === selectedCardId) ?? showcaseCards[0]
+  const snapshotItems = useMemo<SnapshotItem[]>(() => {
+    const items = [
+      handshakeAi && {
+        id: handshakeAi.id,
+        summary: handshakeAi.summary,
+        name: handshakeAi.organization,
+        role: handshakeAi.role,
+        initials: 'HA',
+      },
+      umdResearch && {
+        id: umdResearch.id,
+        summary: umdResearch.summary,
+        name: 'UMD Computing & Society',
+        role: umdResearch.role,
+        initials: 'UM',
+      },
+      tailored && {
+        id: tailored.id,
+        summary: tailored.summary,
+        name: tailored.title,
+        role: tailored.role,
+        initials: 'TA',
+      },
+    ].filter(Boolean)
 
-  useEffect(() => {
-    setSelectedCardId(showcaseCards[0]?.id ?? '')
-  }, [showcaseCards])
+    return items as SnapshotItem[]
+  }, [handshakeAi, tailored, umdResearch])
+
+  const financeSkills = skillGroups.find((group) => group.id === 'finance')
+  const dataSkills = skillGroups.find((group) => group.id === 'data-ai')
+  const engineeringSkills = skillGroups.find((group) => group.id === 'engineering-tools')
 
   useEffect(() => {
     if (reducedMotion) {
@@ -105,78 +184,6 @@ function App() {
 
     const frame = window.requestAnimationFrame(() => setLoaded(true))
     return () => window.cancelAnimationFrame(frame)
-  }, [reducedMotion])
-
-  useEffect(() => {
-    document.documentElement.dataset.motion = reducedMotion ? 'reduced' : 'full'
-    document.documentElement.dataset.theme = 'dark'
-  }, [reducedMotion])
-
-  useEffect(() => {
-    const tick = () => setClockText(getEasternTime())
-    tick()
-    const interval = window.setInterval(tick, 60_000)
-    return () => window.clearInterval(interval)
-  }, [])
-
-  useEffect(() => {
-    const sections = (Object.keys(sectionRefs.current) as SectionKey[])
-      .map((key) => sectionRefs.current[key])
-      .filter((node): node is HTMLElement => node instanceof HTMLElement)
-
-    if (!sections.length) return
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)
-        if (!visible[0]) return
-        setActiveSection(visible[0].target.id as SectionKey)
-      },
-      {
-        rootMargin: '-18% 0px -60% 0px',
-        threshold: [0.1, 0.25, 0.45, 0.7],
-      },
-    )
-
-    sections.forEach((section) => observer.observe(section))
-    return () => observer.disconnect()
-  }, [])
-
-  useEffect(() => {
-    if (reducedMotion) {
-      setHeroFadeProgress(0)
-      return
-    }
-
-    let ticking = false
-
-    const update = () => {
-      ticking = false
-      const introSection = sectionRefs.current.intro
-      const fadeDistance = introSection
-        ? Math.max(Math.min(introSection.offsetHeight * 0.6, 340), 180)
-        : Math.max(Math.min(window.innerHeight * 0.35, 340), 180)
-      const progress = clamp(window.scrollY / fadeDistance, 0, 1)
-
-      setHeroFadeProgress((prev) => (Math.abs(prev - progress) > 0.004 ? progress : prev))
-    }
-
-    const onScrollOrResize = () => {
-      if (ticking) return
-      ticking = true
-      window.requestAnimationFrame(update)
-    }
-
-    update()
-    window.addEventListener('scroll', onScrollOrResize, { passive: true })
-    window.addEventListener('resize', onScrollOrResize)
-
-    return () => {
-      window.removeEventListener('scroll', onScrollOrResize)
-      window.removeEventListener('resize', onScrollOrResize)
-    }
   }, [reducedMotion])
 
   useEffect(() => {
@@ -190,624 +197,696 @@ function App() {
       return
     }
 
-    const fallback = window.setTimeout(() => {
-      nodes.forEach((node) => {
-        node.dataset.visible = 'true'
-      })
-    }, 1200)
-
     const observer = new IntersectionObserver(
-      (entries, obs) => {
+      (entries, currentObserver) => {
         entries.forEach((entry) => {
           if (!entry.isIntersecting) return
           const target = entry.target as HTMLElement
           target.dataset.visible = 'true'
-          obs.unobserve(target)
+          currentObserver.unobserve(target)
         })
       },
       {
-        rootMargin: '0px 0px -10% 0px',
+        rootMargin: '0px 0px -8% 0px',
         threshold: 0.12,
       },
     )
 
     nodes.forEach((node) => observer.observe(node))
-    return () => {
-      window.clearTimeout(fallback)
-      observer.disconnect()
-    }
-  }, [reducedMotion, selectedCardId])
+    return () => observer.disconnect()
+  }, [reducedMotion])
 
-  const setSectionRef = (key: SectionKey) => (node: HTMLElement | null) => {
-    sectionRefs.current[key] = node
+  if (!healthyAmplified || !miraeAsset || !handshakeAi || !umdResearch || !tailored) {
+    return null
   }
-
-  const scrollToSection = (key: SectionKey) => {
-    const target = sectionRefs.current[key]
-    if (!target) return
-    const offset = key === 'intro' ? 0 : 24
-    window.scrollTo({
-      top: Math.max(window.scrollY + target.getBoundingClientRect().top - offset, 0),
-      behavior: reducedMotion ? 'auto' : 'smooth',
-    })
-  }
-
-  const revealDelay = (index: number): CSSProperties =>
-    ({ ['--reveal-delay' as string]: `${index * 80}ms` }) as CSSProperties
-
-  const heroContentOpacity = reducedMotion ? 1 : clamp(1 - heroFadeProgress * 1.2, 0, 1)
-  const heroContentShift = reducedMotion ? 0 : -Math.round(heroFadeProgress * 22)
-  const heroContentStyle = {
-    opacity: heroContentOpacity,
-    transform: `translate3d(0, ${heroContentShift}px, 0)`,
-    pointerEvents: heroContentOpacity < 0.08 ? 'none' : 'auto',
-  } satisfies CSSProperties
-
-  const financeSkills = skillGroups.find((group) => group.id === 'finance')?.items ?? []
-  const dataSkills = skillGroups.find((group) => group.id === 'data-ai')?.items ?? []
-  const toolSkills = skillGroups.find((group) => group.id === 'engineering-tools')?.items ?? []
-  const additionalExperience = experience.filter((item) => !item.featured)
 
   return (
-    <div className={styles.pageShell}>
-      <div className={cn(styles.loadingBar, loaded && styles.loadingBarDone)} aria-hidden="true">
-        <div className={styles.loadingBarFill} />
-      </div>
+    <div className="relative isolate overflow-x-clip bg-background text-foreground">
+      <section id="top" className="relative min-h-screen overflow-hidden">
+        <video
+          className="absolute inset-0 h-full w-full object-cover"
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="metadata"
+        >
+          <source src={heroVideoSrc} type="video/mp4" />
+        </video>
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_12%,rgba(138,255,170,0.12),transparent_20%),radial-gradient(circle_at_78%_18%,rgba(104,72,255,0.24),transparent_24%),linear-gradient(180deg,rgba(255,255,255,0.03),transparent_38%)]" />
+        <div
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background:
+              'linear-gradient(to bottom, transparent 0%, transparent 30%, hsl(260 87% 3% / 0.1) 45%, hsl(260 87% 3% / 0.4) 60%, hsl(260 87% 3% / 0.75) 75%, hsl(260 87% 3%) 95%)',
+          }}
+        />
 
-      <main className={styles.pageWrapper}>
-        <section id="intro" ref={setSectionRef('intro')} className={styles.heroSection}>
-          <div className={styles.heroContainer}>
-            <div className={styles.heroInner}>
-              <header className={styles.topBar}>
-                <div className={styles.topBarLeft}>
-                  <TopChip>{clockText} <span>(EST)</span></TopChip>
-                  <TopChip>{links.location}</TopChip>
-                </div>
-                <nav className={styles.topBarNav} aria-label="Site navigation">
-                  {navItems.map((item) => {
-                    const active = activeSection === item.id
-                    return (
-                      <button
-                        key={item.id}
-                        type="button"
-                        onClick={() => scrollToSection(item.id)}
-                        className={cn(styles.navButton, active && styles.navButtonActive)}
-                        aria-pressed={active}
-                      >
-                        {item.label}
-                      </button>
-                    )
-                  })}
-                </nav>
-              </header>
+        <div className="relative z-10 flex min-h-screen flex-col">
+          <header className="mx-auto w-full max-w-[850px] px-4 pt-6 sm:px-6">
+            <div
+              className={cn(
+                'liquid-glass flex items-center justify-between rounded-[1.75rem] px-4 py-3 text-sm text-foreground/86 transition-all duration-700',
+                loaded ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0',
+              )}
+            >
+              <a href="#top" className="flex items-center gap-3 pr-4">
+                <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-gradient-to-b from-secondary to-muted text-primary shadow-glass">
+                  <Crosshair className="h-4 w-4" />
+                </span>
+                <span className="text-xl font-semibold tracking-tight">MANN</span>
+              </a>
 
-              <div className={cn(styles.heroTextWrap, loaded && styles.heroTextWrapReady)}>
-                <div className={styles.heroTextContent} style={heroContentStyle}>
-                  <div className={styles.heroName}>
-                    <h1>Mann</h1>
-                    <h1 className={styles.heroLastName}>Parekh</h1>
-                  </div>
-                  <p className={styles.heroIntro}>
-                    Hi! I&apos;m <span>Mann</span>, a finance and analytics builder focused on FP&amp;A, quantitative
-                    modeling, and decision support. Currently studying at <span>University of Maryland</span> with
-                    experience across finance, AI, and research systems.
-                  </p>
-                  <div className={styles.heroLinks}>
-                    <a href={links.resumeUrl} target="_blank" rel="noreferrer" className={styles.textLink}>
-                      Resume
-                    </a>
-                    <a href={`mailto:${links.email}`} className={styles.textLink}>
-                      Email
-                    </a>
-                    {links.githubUrl ? (
-                      <a href={links.githubUrl} target="_blank" rel="noreferrer" className={styles.textLink}>
-                        GitHub
-                      </a>
-                    ) : null}
-                  </div>
+              <nav className="hidden items-center gap-7 md:flex">
+                {navLinks.map((item) => (
+                  <a
+                    key={item.label}
+                    href={item.href}
+                    className="flex items-center gap-1 text-sm text-foreground/72 transition-colors hover:text-foreground"
+                  >
+                    <span>{item.label}</span>
+                    {item.withChevron ? <ChevronDown className="h-4 w-4" /> : null}
+                  </a>
+                ))}
+              </nav>
+
+              <Button asChild variant="hero" size="sm">
+                <a href={links.resumeUrl} target="_blank" rel="noreferrer">
+                  Resume
+                </a>
+              </Button>
+            </div>
+          </header>
+
+          <div className="mx-auto flex w-full max-w-7xl flex-1 flex-col justify-between px-4 pb-10 pt-10 sm:px-6 lg:px-8">
+            <div className="max-w-5xl pt-12 sm:pt-20">
+              <div
+                className={cn(
+                  'inline-flex items-center gap-2 rounded-full px-2 py-2 transition-all duration-700',
+                  'liquid-glass',
+                  loaded ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0',
+                )}
+                style={{ transitionDelay: '120ms' }}
+              >
+                <span className="rounded-full px-4 py-1.5 text-sm text-foreground/82">
+                  University of Maryland
+                </span>
+                <ChevronRight className="h-4 w-4 text-primary/90" />
+                <span className="rounded-full bg-white/5 px-4 py-1.5 text-sm text-foreground/72">
+                  Spring 2027
+                </span>
+              </div>
+
+              <div
+                className={cn(
+                  'mt-8 inline-flex flex-wrap items-center gap-2 rounded-full border border-white/10 bg-white/[0.02] px-4 py-2 text-xs uppercase tracking-[0.22em] text-foreground/60 transition-all duration-700',
+                  loaded ? 'translate-y-0 opacity-100' : 'translate-y-5 opacity-0',
+                )}
+                style={{ transitionDelay: '190ms' }}
+              >
+                <span>Finance Systems</span>
+                <span className="h-1 w-1 rounded-full bg-primary" />
+                <span>Analytics</span>
+                <span className="h-1 w-1 rounded-full bg-primary" />
+                <span>FP&amp;A</span>
+              </div>
+
+              <h1
+                className={cn(
+                  'mt-8 max-w-5xl text-hero-heading text-4xl font-semibold leading-[1.05] tracking-tight sm:text-6xl lg:text-7xl transition-all duration-1000',
+                  loaded ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0',
+                )}
+                style={{ transitionDelay: '240ms' }}
+              >
+                <span className="block">Quantitative finance</span>
+                <span className="block">and analytics,</span>
+                <span className="block">built with technical rigor.</span>
+              </h1>
+
+              <p
+                className={cn(
+                  'mt-6 max-w-xl text-lg text-hero-sub/90 transition-all duration-1000',
+                  loaded ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0',
+                )}
+                style={{ transitionDelay: '320ms' }}
+              >
+                {siteMeta.intro}
+              </p>
+
+              <div
+                className={cn(
+                  'mt-8 flex flex-wrap gap-4 transition-all duration-1000',
+                  loaded ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0',
+                )}
+                style={{ transitionDelay: '400ms' }}
+              >
+                <Button asChild variant="hero">
+                  <a href={links.resumeUrl} target="_blank" rel="noreferrer">
+                    <FileText className="mr-2 h-4 w-4" />
+                    View Resume
+                  </a>
+                </Button>
+                <Button asChild variant="heroSecondary">
+                  <a href={`mailto:${links.email}`}>
+                    <Mail className="mr-2 h-4 w-4" />
+                    Email Me
+                  </a>
+                </Button>
+              </div>
+            </div>
+
+            <div
+              className={cn(
+                'mt-16 flex flex-col gap-6 rounded-[2rem] px-1 py-2 transition-all duration-1000 md:flex-row md:items-end md:justify-between',
+                loaded ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0',
+              )}
+              style={{ transitionDelay: '520ms' }}
+            >
+              <div className="max-w-xs">
+                <p className="text-sm uppercase tracking-[0.18em] text-foreground/45">Selected signals</p>
+                <p className="mt-3 text-sm text-foreground/55">
+                  Experience across finance, research, product work, and analytics systems.
+                </p>
+              </div>
+
+              <div className="overflow-hidden md:max-w-[760px]">
+                <div className="flex w-max gap-4 animate-marquee pr-4">
+                  {[...getMarqueeLabels(), ...getMarqueeLabels()].map((brand, index) => (
+                    <div
+                      key={`${brand}-${index}`}
+                      className="liquid-glass flex items-center gap-3 rounded-full px-4 py-3 text-sm text-foreground/78"
+                    >
+                      <span className="flex h-6 w-6 items-center justify-center rounded-lg bg-white/5 text-xs font-semibold uppercase text-primary">
+                        {brand.charAt(0)}
+                      </span>
+                      <span>{brand}</span>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
           </div>
-        </section>
-
-        <div className={styles.contentFlow}>
-          <section className={styles.heroGradientFade} aria-hidden="true" />
-
-          <section id="work" ref={setSectionRef('work')} className={styles.contentSection}>
-            <SectionHeader
-              title="Selected Work"
-              subtitle="Projects and experience translated into portfolio-ready case previews"
-              rightLabel="Featured"
-            />
-
-            <div className={styles.postGrid}>
-              {showcaseCards.map((card, index) => (
-                <PostPreviewCard
-                  key={card.id}
-                  card={card}
-                  index={index}
-                  isSelected={selectedCard?.id === card.id}
-                  onSelect={() => setSelectedCardId(card.id)}
-                />
-              ))}
-            </div>
-
-            {selectedCard ? (
-              <div className={styles.detailPanel} data-reveal style={revealDelay(0)}>
-                <div className={styles.detailPanelHeader}>
-                  <div>
-                    <label className={styles.microLabel}>{selectedCard.kind}</label>
-                    <h3>{selectedCard.title}</h3>
-                    <p>{selectedCard.subtitle}</p>
-                  </div>
-                  <p className={styles.detailPeriod}>{selectedCard.period}</p>
-                </div>
-                <div className={styles.detailPanelGrid}>
-                  <div className={styles.detailCol}>
-                    <p className={styles.detailBodyText}>{selectedCard.description}</p>
-                    <p className={styles.detailBodyMuted}>{selectedCard.detailTitle}</p>
-                    <p className={styles.detailBodyText}>{selectedCard.detailBody}</p>
-                    <div className={styles.tagRow}>
-                      {selectedCard.tags.map((tag) => (
-                        <span key={tag} className={styles.tagPill}>
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                  <div className={styles.detailCol}>
-                    <ul className={styles.detailList}>
-                      {selectedCard.highlights.map((point) => (
-                        <li key={point}>{point}</li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            ) : null}
-          </section>
-
-          <Divider />
-
-          <section id="experience" ref={setSectionRef('experience')} className={styles.contentSection}>
-            <SectionHeader
-              title="Experience"
-              subtitle="Finance, analytics, and applied AI work across research and industry settings"
-              rightLabel={`${experience.length} roles`}
-            />
-
-            <div className={styles.timelineGrid}>
-              {experience.map((item, index) => (
-                <article key={item.id} className={styles.timelineRow} data-reveal style={revealDelay(index)}>
-                  <div className={styles.timelineRowMeta}>
-                    <label className={styles.microLabel}>{item.category}</label>
-                    <p>{item.start}</p>
-                    <p>{item.end}</p>
-                  </div>
-                  <div className={styles.timelineRowMain}>
-                    <h3>{item.role}</h3>
-                    <p className={styles.timelineOrg}>
-                      {item.organization} <span>• {item.location}</span>
-                    </p>
-                    <p className={styles.timelineSummary}>{item.summary}</p>
-                    <div className={styles.tagRow}>
-                      {item.tags.map((tag) => (
-                        <span key={tag} className={styles.tagPill}>
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                  <div className={styles.timelineRowAside}>
-                    <ul>
-                      {item.highlights.slice(0, 2).map((point) => (
-                        <li key={point}>{point}</li>
-                      ))}
-                    </ul>
-                  </div>
-                </article>
-              ))}
-            </div>
-
-            <div className={styles.subtleBlock} data-reveal style={revealDelay(experience.length + 1)}>
-              <label className={styles.microLabel}>Additional Experience (compact)</label>
-              <div className={styles.compactExperienceList}>
-                {additionalExperience.map((item) => (
-                  <div key={`compact-${item.id}`} className={styles.compactExperienceItem}>
-                    <p>{item.organization}</p>
-                    <span>
-                      {item.role} • {item.start} — {item.end}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </section>
-
-          <Divider />
-
-          <section id="toolkit" ref={setSectionRef('toolkit')} className={styles.contentSection}>
-            <SectionHeader
-              title="Toolkit"
-              subtitle="Finance, analytics, and engineering capabilities in a code-snippet inspired layout"
-              rightLabel="Skills + Education"
-            />
-
-            <div className={styles.codePanelsGrid}>
-              <CodePanel title="finance.ts" badge="FP&A" delayStyle={revealDelay(0)}>
-                <CodeLine index={1} label="focus" value="financial_analysis | modeling | budgeting | valuation" accent="violet" />
-                {financeSkills.slice(0, 6).map((skill, idx) => (
-                  <CodeLine key={skill} index={idx + 2} label={`finance[${idx}]`} value={skill} />
-                ))}
-                <CodeLine index={9} label="signals" value={metrics.map((m) => m.value).join(' | ')} accent="blue" />
-              </CodePanel>
-
-              <CodePanel title="analytics.py" badge="Data & AI" delayStyle={revealDelay(1)}>
-                <CodeLine index={1} label="stack" value="python, r, sql, pytorch, pandas" accent="teal" />
-                {dataSkills.slice(0, 8).map((skill, idx) => (
-                  <CodeLine key={skill} index={idx + 2} label={`tools[${idx}]`} value={skill} />
-                ))}
-              </CodePanel>
-
-              <CodePanel title="education.md" badge="UMD" delayStyle={revealDelay(2)}>
-                <CodeLine index={1} label="school" value={education.school} accent="indigo" />
-                <CodeLine index={2} label="degree" value={education.degreeLine} />
-                <CodeLine index={3} label="graduation" value={education.gradTerm} />
-                <CodeLine index={4} label="gpa" value={education.gpa} />
-                {education.honors.map((honor, idx) => (
-                  <CodeLine key={honor} index={idx + 5} label={`honors[${idx}]`} value={honor} />
-                ))}
-              </CodePanel>
-
-              <CodePanel title="tooling.json" badge="Engineering" delayStyle={revealDelay(3)}>
-                {toolSkills.slice(0, 9).map((skill, idx) => (
-                  <CodeLine key={skill} index={idx + 1} label={`item_${idx + 1}`} value={skill} />
-                ))}
-              </CodePanel>
-            </div>
-
-            <div className={styles.toolkitNotes} data-reveal style={revealDelay(4)}>
-              <div>
-                <label className={styles.microLabel}>Resume Highlights</label>
-                <ul className={styles.detailList}>
-                  {resumeHighlights.map((item) => (
-                    <li key={item}>{item}</li>
-                  ))}
-                </ul>
-              </div>
-              <div>
-                <label className={styles.microLabel}>Working Style</label>
-                <p className={styles.detailBodyText}>{workingStyle}</p>
-                <p className={styles.detailBodyMuted}>Selected coursework</p>
-                <div className={styles.courseworkWrap}>
-                  {education.coursework.slice(0, 10).map((course) => (
-                    <span key={course} className={styles.courseChip}>
-                      {course}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </section>
-
-          <Divider />
-
-          <section id="contact" ref={setSectionRef('contact')} className={styles.contentSection}>
-            <SectionHeader
-              title="Contact"
-              subtitle="Open to finance, analytics, and strategic decision-support internships and roles"
-              rightLabel="Reach Out"
-            />
-
-            <div className={styles.contactGrid}>
-              <div className={styles.contactCard} data-reveal style={revealDelay(0)}>
-                <label className={styles.microLabel}>Let’s Talk</label>
-                <h3>Quantitative finance and analytics work, built for real decisions.</h3>
-                <p>
-                  I&apos;m interested in opportunities where modeling, structured analysis, and technical execution support
-                  finance teams, operators, and leadership.
-                </p>
-                <div className={styles.contactActions}>
-                  <a href={`mailto:${links.email}`} className={styles.primaryCta}>
-                    {links.email}
-                  </a>
-                  <a href={links.resumeUrl} target="_blank" rel="noreferrer" className={styles.secondaryCta}>
-                    Download Resume
-                  </a>
-                </div>
-              </div>
-
-              <div className={styles.contactCard} data-reveal style={revealDelay(1)}>
-                <label className={styles.microLabel}>Details</label>
-                <div className={styles.contactRows}>
-                  <ContactRow label="Location" value={links.location} />
-                  <ContactRow label="Email" value={links.email} href={`mailto:${links.email}`} />
-                  {links.githubUrl ? <ContactRow label="GitHub" value={links.githubUrl} href={links.githubUrl} /> : null}
-                  <ContactRow label="Resume" value="Mann_Parekh_Resume.pdf" href={links.resumeUrl} />
-                </div>
-                <p className={styles.footerNote}>Portfolio adapted in a JoshW-inspired style with your finance/analytics content and resume-based data.</p>
-              </div>
-            </div>
-
-            <footer className={styles.footerBar} data-reveal style={revealDelay(2)}>
-              <span>{siteMeta.name}</span>
-              <span>Finance • FP&amp;A • Analytics • AI</span>
-              <span>{new Date().getFullYear()}</span>
-            </footer>
-          </section>
         </div>
-      </main>
+      </section>
+
+      <section id="work" className="relative overflow-hidden py-28 scroll-mt-24">
+        <HlsVideo src={featuresVideoSrc} className="absolute inset-0 h-full w-full" />
+        <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-background via-background/80 to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-background via-background/80 to-transparent" />
+        <div className="absolute inset-0 bg-background/40" />
+
+        <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <SectionHeading
+            badgeLead="Selected Work"
+            badgeTail="Portfolio"
+            title={
+              <>
+                Recent work across finance,
+                <br />
+                analytics, and product systems
+              </>
+            }
+            description="A few recent projects and roles where quantitative thinking, modeling, and execution translated into something tangible."
+          />
+
+          <div className="mt-14 grid gap-6 md:grid-cols-3">
+            {featuredWork.map((item, index) => (
+              <article
+                key={item.id}
+                data-reveal
+                style={{ transitionDelay: `${index * 110}ms` }}
+                className="liquid-glass group rounded-[1.75rem] p-8 transition-colors duration-300 hover:bg-white/[0.03]"
+              >
+                <div className="flex items-start justify-between gap-4">
+                  <div>
+                    <p className="text-xs uppercase tracking-[0.22em] text-foreground/50">{item.kind}</p>
+                    <h3 className="mt-3 text-2xl font-semibold text-hero-heading">{item.title}</h3>
+                  </div>
+                  <span className="text-sm text-foreground/52">{item.period}</span>
+                </div>
+
+                <p className="mt-4 text-sm font-medium text-primary">{item.eyebrow}</p>
+                <p className="mt-4 max-w-sm text-base leading-7 text-foreground/72">{item.summary}</p>
+
+                <div className="mt-6 flex flex-wrap gap-2">
+                  {item.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="rounded-full border border-white/10 bg-white/[0.02] px-3 py-1 text-xs text-foreground/62"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+
+                <div className="mt-8 border-t border-border/50 pt-6">
+                  <p className="text-3xl font-semibold tracking-tight text-hero-heading">{item.statValue}</p>
+                  <p className="mt-2 text-sm text-foreground/55">{item.statLabel}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <StorySection
+        id="experience"
+        badgeLead="Healthy Amplified"
+        badgeTail="FP&A"
+        title={
+          <>
+            Executive reporting and
+            <br />
+            capital strategy support
+          </>
+        }
+        body={healthyAmplified.summary}
+        bullets={healthyAmplified.highlights}
+        primaryAction={{
+          label: 'View Resume',
+          href: links.resumeUrl,
+          icon: <FileText className="mr-2 h-4 w-4" />,
+          external: true,
+        }}
+        secondaryAction={{
+          label: 'Email Me',
+          href: `mailto:${links.email}`,
+          icon: <Mail className="mr-2 h-4 w-4" />,
+        }}
+        videoSrc={routingVideoSrc}
+      />
+
+      <StorySection
+        badgeLead="Mirae Asset"
+        badgeTail="Applied AI"
+        title={
+          <>
+            Forecasting workflows
+            <br />
+            tied to retention strategy
+          </>
+        }
+        body={miraeAsset.summary}
+        stats={[
+          { value: '30%+', label: 'client retention support' },
+          { value: '2', label: 'core finance workflows shipped' },
+          { value: 'Python + R', label: 'modeling stack' },
+          { value: '20+', label: 'AI team collaborators' },
+        ]}
+        primaryAction={{
+          label: 'Open Resume',
+          href: links.resumeUrl,
+          icon: <FileText className="mr-2 h-4 w-4" />,
+          external: true,
+        }}
+        videoSrc={studioVideoSrc}
+        mediaRight
+      />
+
+      <section id="results" className="relative overflow-hidden py-32 scroll-mt-24">
+        <HlsVideo src={numbersVideoSrc} className="absolute inset-0 h-full w-full" />
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              'linear-gradient(to top, hsl(260 87% 3%) 0%, hsl(260 87% 3% / 0.85) 15%, hsl(260 87% 3% / 0.4) 40%, hsl(260 87% 3% / 0.15) 60%, hsl(260 87% 3% / 0.3) 100%)',
+          }}
+        />
+
+        <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div data-reveal className="mx-auto max-w-4xl text-center">
+            <p className="text-sm uppercase tracking-[0.26em] text-primary/80">Results</p>
+            <div className="mt-8 text-7xl font-semibold tracking-tighter text-hero-heading sm:text-[8rem] lg:text-[10rem]">
+              {metrics[0]?.value ?? '30%+'}
+            </div>
+            <p className="mt-4 text-xl font-medium text-hero-heading">Client retention support</p>
+            <p className="mx-auto mt-4 max-w-2xl text-base leading-8 text-foreground/70">
+              {metrics[0]?.detail}
+            </p>
+          </div>
+
+          <div
+            data-reveal
+            className="liquid-glass mx-auto mt-20 grid max-w-5xl gap-0 rounded-[2rem] p-8 md:grid-cols-2 md:p-12"
+            style={{ transitionDelay: '120ms' }}
+          >
+            <div className="flex flex-col justify-center gap-3 border-b border-border/50 py-6 md:border-b-0 md:border-r md:pr-12">
+              <p className="text-5xl font-semibold tracking-tight text-hero-heading">{metrics[1]?.value}</p>
+              <p className="text-xl text-foreground/80">{metrics[1]?.label}</p>
+              <p className="max-w-md text-sm leading-7 text-foreground/58">{metrics[1]?.detail}</p>
+            </div>
+            <div className="flex flex-col justify-center gap-3 py-6 md:pl-12">
+              <p className="text-5xl font-semibold tracking-tight text-hero-heading">{metrics[2]?.value}</p>
+              <p className="text-xl text-foreground/80">{metrics[2]?.label}</p>
+              <p className="max-w-md text-sm leading-7 text-foreground/58">{metrics[2]?.detail}</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="relative py-32">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <SectionHeading
+            centered
+            badgeLead="Experience Snapshots"
+            badgeTail="Selected"
+            title={
+              <>
+                Built across finance,
+                <br />
+                research, and product work
+              </>
+            }
+            description="Three environments where analysis had to be clear, reproducible, and useful for actual decisions."
+          />
+
+          <div className="mt-14 grid gap-6 md:grid-cols-3">
+            {snapshotItems.map((item, index) => (
+              <article
+                key={item.id}
+                data-reveal
+                style={{ transitionDelay: `${index * 90}ms` }}
+                className={cn(
+                  'liquid-glass rounded-[1.75rem] p-8',
+                  index === 1 ? 'md:-translate-y-6' : '',
+                )}
+              >
+                <p className="text-base leading-8 text-foreground/74">{item.summary}</p>
+                <div className="mt-8 border-t border-border/50 pt-6">
+                  <div className="flex items-center gap-4">
+                    <span className="flex h-10 w-10 items-center justify-center rounded-full bg-secondary text-sm font-semibold text-primary">
+                      {item.initials}
+                    </span>
+                    <div>
+                      <p className="font-medium text-hero-heading">{item.name}</p>
+                      <p className="text-sm text-foreground/56">{item.role}</p>
+                    </div>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" className="relative overflow-hidden pt-8">
+        <HlsVideo src={footerVideoSrc} className="absolute inset-0 h-full w-full" />
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              'linear-gradient(to bottom, hsl(260 87% 3%) 0%, hsl(260 87% 3% / 0.85) 15%, hsl(260 87% 3% / 0.4) 40%, hsl(260 87% 3% / 0.15) 60%, hsl(260 87% 3% / 0.3) 100%)',
+          }}
+        />
+
+        <div className="relative z-10 mx-auto max-w-7xl px-4 pb-10 sm:px-6 lg:px-8">
+          <div data-reveal className="liquid-glass rounded-[2rem] p-12 text-center sm:p-20">
+            <p className="text-sm uppercase tracking-[0.26em] text-primary/80">Connect</p>
+            <h2 className="mx-auto mt-6 max-w-4xl text-4xl font-semibold leading-tight text-hero-heading sm:text-5xl lg:text-6xl">
+              Ready to review my work
+              <br />
+              in finance and analytics?
+            </h2>
+            <p className="mx-auto mt-5 max-w-2xl text-base leading-8 text-foreground/70">
+              If you&apos;re hiring for FP&amp;A, strategic finance, analytics, or technical research
+              support, I&apos;d be glad to connect.
+            </p>
+
+            <div className="mt-8 flex flex-wrap justify-center gap-4">
+              <Button asChild variant="hero">
+                <a href={links.resumeUrl} target="_blank" rel="noreferrer">
+                  <FileText className="mr-2 h-4 w-4" />
+                  Open Resume
+                </a>
+              </Button>
+              <Button asChild variant="heroSecondary">
+                <a href={`mailto:${links.email}`}>
+                  <Mail className="mr-2 h-4 w-4" />
+                  Email Me
+                </a>
+              </Button>
+            </div>
+          </div>
+
+          <footer className="mt-14 border-t border-border/30 py-12">
+            <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-5">
+              <div className="lg:col-span-2">
+                <div className="flex items-center gap-3">
+                  <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-b from-secondary to-muted text-primary">
+                    <Crosshair className="h-5 w-5" />
+                  </span>
+                  <div>
+                    <p className="text-lg font-semibold text-hero-heading">{siteMeta.name}</p>
+                    <p className="text-sm text-foreground/58">{siteMeta.title}</p>
+                  </div>
+                </div>
+
+                <p className="mt-5 max-w-md text-sm leading-7 text-foreground/62">{workingStyle}</p>
+
+                <div className="mt-6 space-y-3 text-sm text-foreground/64">
+                  <a href={`mailto:${links.email}`} className="flex items-center gap-3 hover:text-foreground">
+                    <Mail className="h-4 w-4 text-primary" />
+                    <span>{links.email}</span>
+                  </a>
+                  <div className="flex items-center gap-3">
+                    <MapPin className="h-4 w-4 text-primary" />
+                    <span>{links.location}</span>
+                  </div>
+                  {links.githubUrl ? (
+                    <a
+                      href={links.githubUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="flex items-center gap-3 hover:text-foreground"
+                    >
+                      <span className="flex h-4 w-4 items-center justify-center rounded-full bg-primary/15 text-[10px] font-semibold text-primary">
+                        G
+                      </span>
+                      <span>github.com/msparekh25</span>
+                    </a>
+                  ) : null}
+                </div>
+              </div>
+
+              <FooterColumn title="Focus" items={resumeHighlights} />
+              <FooterColumn
+                title="Toolkit"
+                items={[
+                  financeSkills?.items[0],
+                  financeSkills?.items[1],
+                  dataSkills?.items[0],
+                  dataSkills?.items[6],
+                  engineeringSkills?.items[4],
+                ]}
+              />
+              <FooterColumn
+                title="Education"
+                items={[
+                  education.school,
+                  education.degreeLine,
+                  education.gpa,
+                  education.honors[0],
+                ]}
+              />
+            </div>
+
+            <div className="mt-10 flex flex-col gap-4 border-t border-border/30 pt-6 text-sm text-foreground/54 md:flex-row md:items-center md:justify-between">
+              <p>© 2026 Mann Parekh.</p>
+              <div className="flex flex-wrap gap-5">
+                <a href={links.resumeUrl} target="_blank" rel="noreferrer" className="hover:text-foreground">
+                  Resume
+                </a>
+                {links.githubUrl ? (
+                  <a href={links.githubUrl} target="_blank" rel="noreferrer" className="hover:text-foreground">
+                    GitHub
+                  </a>
+                ) : null}
+                <a href={`mailto:${links.email}`} className="hover:text-foreground">
+                  Email
+                </a>
+              </div>
+            </div>
+          </footer>
+        </div>
+      </section>
     </div>
   )
 }
 
-type SectionHeaderProps = {
-  title: string
-  subtitle: string
-  rightLabel?: string
-}
-
-function SectionHeader({ title, subtitle, rightLabel }: SectionHeaderProps) {
+function StorySection({
+  id,
+  badgeLead,
+  badgeTail,
+  title,
+  body,
+  bullets,
+  stats,
+  primaryAction,
+  secondaryAction,
+  videoSrc,
+  mediaRight,
+}: StorySectionProps) {
   return (
-    <header className={styles.sectionHeader} data-reveal>
-      <div>
-        <h2>{title}</h2>
-        <p>{subtitle}</p>
-      </div>
-      {rightLabel ? <label className={styles.microLabel}>{rightLabel}</label> : null}
-    </header>
-  )
-}
-
-type TopChipProps = {
-  children: ReactNode
-}
-
-function TopChip({ children }: TopChipProps) {
-  return <div className={styles.topChip}>{children}</div>
-}
-
-type PostPreviewCardProps = {
-  card: ShowcaseCard
-  index: number
-  isSelected: boolean
-  onSelect: () => void
-}
-
-function PostPreviewCard({ card, index, isSelected, onSelect }: PostPreviewCardProps) {
-  const handlePointerMove = (event: React.MouseEvent<HTMLButtonElement>) => {
-    const rect = event.currentTarget.getBoundingClientRect()
-    const x = event.clientX - rect.left
-    const y = event.clientY - rect.top
-    const dx = x - rect.width / 2
-    const dy = y - rect.height / 2
-    event.currentTarget.style.setProperty('--mx', `${x}px`)
-    event.currentTarget.style.setProperty('--my', `${y}px`)
-    event.currentTarget.style.setProperty('--dx', `${dx}px`)
-    event.currentTarget.style.setProperty('--dy', `${dy}px`)
-  }
-
-  return (
-    <article className={cn(styles.postCard, isSelected && styles.postCardSelected)} data-reveal style={{ ['--reveal-delay' as string]: `${index * 70}ms` } as CSSProperties}>
-      <button
-        type="button"
-        className={cn(styles.mediaButton, styles[`theme${capitalize(card.visualTheme)}` as keyof typeof styles])}
-        onClick={onSelect}
-        onMouseMove={handlePointerMove}
-      >
-        <div className={styles.mediaShimmer} aria-hidden="true" />
-        <div className={styles.mediaPattern} aria-hidden="true">
-          <span />
-          <span />
-          <span />
+    <section id={id} className="relative py-32 scroll-mt-24">
+      <div className="mx-auto grid max-w-6xl gap-12 px-4 sm:px-6 lg:grid-cols-2 lg:gap-20 lg:px-8">
+        <div className={cn(mediaRight ? 'order-1 lg:order-2' : 'order-1')}>
+          <div className="liquid-glass aspect-[4/3] overflow-hidden rounded-[1.75rem]">
+            <HlsVideo src={videoSrc} className="h-full w-full" />
+          </div>
         </div>
-        <div className={styles.mediaMeta}>
-          <p>{card.subtitle}</p>
-          <p>{extractYear(card.period)}</p>
-        </div>
-        <div className={styles.mediaTitleWrap}>
-          <h3>{card.title}</h3>
-          <p>{card.kind}</p>
-        </div>
-        <div className={styles.mediaOverlay} aria-hidden="true">
-          <div className={styles.mediaOverlayInner}>
-            <h4>View Case</h4>
-            <div className={styles.overlayCrosses}>
-              <span className={styles.overlayCross} />
-              <span className={styles.overlayCross} />
-              <span className={styles.overlayCross} />
-              <span className={styles.overlayCross} />
+
+        <div
+          data-reveal
+          className={cn(
+            'flex flex-col justify-center',
+            mediaRight ? 'order-2 lg:order-1' : 'order-2',
+          )}
+        >
+          <div className="inline-flex items-center gap-2 rounded-full px-2 py-2 liquid-glass w-fit">
+            <span className="rounded-full px-4 py-1.5 text-sm text-foreground/82">{badgeLead}</span>
+            <ChevronRight className="h-4 w-4 text-primary/90" />
+            <span className="rounded-full bg-white/5 px-4 py-1.5 text-sm text-foreground/72">
+              {badgeTail}
+            </span>
+          </div>
+
+          <h2 className="mt-6 text-3xl font-semibold leading-tight text-hero-heading sm:text-5xl">
+            {title}
+          </h2>
+          <p className="mt-6 max-w-xl text-base leading-8 text-foreground/72">{body}</p>
+
+          {bullets?.length ? (
+            <div className="mt-8 space-y-4">
+              {bullets.map((bullet) => (
+                <div key={bullet} className="flex items-start gap-4 text-sm leading-7 text-foreground/66">
+                  <span className="mt-3 h-1.5 w-1.5 rounded-full bg-primary" />
+                  <span>{bullet}</span>
+                </div>
+              ))}
             </div>
-          </div>
-        </div>
-      </button>
+          ) : null}
 
-      <div className={styles.postContent}>
-        <div>
-          <h3>{card.title}</h3>
-          <p className={styles.postDescription}>{card.description}</p>
-        </div>
-        <div className={styles.postFooter}>
-          <div className={styles.tagRow}>
-            {card.tags.slice(0, 3).map((tag) => (
-              <span key={tag} className={styles.tagPill}>
-                {tag}
-              </span>
-            ))}
+          {stats?.length ? (
+            <div className="mt-8 grid grid-cols-2 gap-4">
+              {stats.map((stat) => (
+                <div key={stat.label} className="liquid-glass rounded-2xl p-4">
+                  <p className="text-2xl font-semibold text-hero-heading">{stat.value}</p>
+                  <p className="mt-2 text-sm text-foreground/58">{stat.label}</p>
+                </div>
+              ))}
+            </div>
+          ) : null}
+
+          <div className="mt-8 flex flex-wrap gap-4">
+            <Button asChild variant="hero">
+              <a
+                href={primaryAction.href}
+                target={primaryAction.external ? '_blank' : undefined}
+                rel={primaryAction.external ? 'noreferrer' : undefined}
+              >
+                {primaryAction.icon}
+                {primaryAction.label}
+              </a>
+            </Button>
+            {secondaryAction ? (
+              <Button asChild variant="heroSecondary">
+                <a
+                  href={secondaryAction.href}
+                  target={secondaryAction.external ? '_blank' : undefined}
+                  rel={secondaryAction.external ? 'noreferrer' : undefined}
+                >
+                  {secondaryAction.icon}
+                  {secondaryAction.label}
+                </a>
+              </Button>
+            ) : null}
           </div>
-          <SlidingLink text="Continue Reading" onActivate={onSelect} />
         </div>
       </div>
-    </article>
-  )
-}
-
-type SlidingLinkProps = {
-  text: string
-  onActivate: () => void
-}
-
-function SlidingLink({ text, onActivate }: SlidingLinkProps) {
-  const letters = Array.from(text)
-  return (
-    <button type="button" className={styles.slidingLink} onClick={onActivate} aria-label={text}>
-      <span className={styles.slidingText} aria-hidden="true">
-        {letters.map((letter, index) => (
-          <span
-            key={`${letter}-${index}`}
-            className={styles.slidingLetter}
-            data-letter={letter === ' ' ? 'space' : letter}
-            style={{ ['--letter-delay' as string]: `${index * 12}ms` } as CSSProperties}
-          >
-            <span>{letter === ' ' ? '\u00A0' : letter}</span>
-            <span>{letter === ' ' ? '\u00A0' : letter}</span>
-          </span>
-        ))}
-      </span>
-      <ArrowIcon className={styles.slidingArrow} />
-    </button>
-  )
-}
-
-type CodePanelProps = {
-  title: string
-  badge: string
-  children: ReactNode
-  delayStyle?: CSSProperties
-}
-
-function CodePanel({ title, badge, children, delayStyle }: CodePanelProps) {
-  return (
-    <section className={styles.codePanel} data-reveal style={delayStyle}>
-      <header className={styles.codePanelHeader}>
-        <div className={styles.codeDots} aria-hidden="true">
-          <span />
-          <span />
-          <span />
-        </div>
-        <p>{title}</p>
-        <label>{badge}</label>
-      </header>
-      <div className={styles.codePanelBody}>{children}</div>
     </section>
   )
 }
 
-type CodeLineProps = {
-  index: number
-  label: string
-  value: string
-  accent?: 'violet' | 'blue' | 'teal' | 'indigo'
-}
-
-function CodeLine({ index, label, value, accent }: CodeLineProps) {
+function SectionHeading({
+  badgeLead,
+  badgeTail,
+  title,
+  description,
+  centered,
+}: {
+  badgeLead: string
+  badgeTail: string
+  title: ReactNode
+  description: string
+  centered?: boolean
+}) {
   return (
-    <div className={styles.codeLine}>
-      <span className={styles.codeLineNumber}>{String(index).padStart(2, '0')}</span>
-      <span className={styles.codeLabel}>{label}</span>
-      <span className={styles.codeEquals}>=</span>
-      <span className={cn(styles.codeValue, accent && styles[`accent${capitalize(accent)}` as keyof typeof styles])}>
-        {value}
-      </span>
+    <div data-reveal className={cn('max-w-3xl', centered ? 'mx-auto text-center' : '')}>
+      <div
+        className={cn(
+          'inline-flex items-center gap-2 rounded-full px-2 py-2 liquid-glass',
+          centered ? 'mx-auto' : '',
+        )}
+      >
+        <span className="rounded-full px-4 py-1.5 text-sm text-foreground/82">{badgeLead}</span>
+        <ChevronRight className="h-4 w-4 text-primary/90" />
+        <span className="rounded-full bg-white/5 px-4 py-1.5 text-sm text-foreground/72">{badgeTail}</span>
+      </div>
+      <h2 className="mt-6 text-3xl font-semibold leading-tight text-hero-heading sm:text-5xl">{title}</h2>
+      <p className="mt-5 max-w-2xl text-base leading-8 text-foreground/70">{description}</p>
     </div>
   )
 }
 
-type ContactRowProps = {
-  label: string
-  value: string
-  href?: string
-}
+function FooterColumn({ title, items }: { title: string; items: Array<string | undefined> }) {
+  const filteredItems = items.filter(Boolean) as string[]
 
-function ContactRow({ label, value, href }: ContactRowProps) {
   return (
-    <div className={styles.contactRow}>
-      <label>{label}</label>
-      {href ? (
-        <a href={href} target={href.startsWith('mailto:') ? undefined : '_blank'} rel={href.startsWith('mailto:') ? undefined : 'noreferrer'}>
-          {value}
-        </a>
-      ) : (
-        <p>{value}</p>
-      )}
+    <div>
+      <p className="text-sm font-semibold uppercase tracking-[0.24em] text-foreground/46">{title}</p>
+      <ul className="mt-5 space-y-3 text-sm leading-7 text-foreground/63">
+        {filteredItems.map((item) => (
+          <li key={item}>{item}</li>
+        ))}
+      </ul>
     </div>
   )
 }
 
-function Divider() {
-  return <div className={styles.divider} aria-hidden="true" />
-}
-
-function ArrowIcon({ className }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" className={className} aria-hidden="true">
-      <path d="M3 8H13" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" />
-      <path d="M9 4L13 8L9 12" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  )
-}
-
-function getEasternTime() {
-  try {
-    return new Date().toLocaleTimeString('en-US', {
-      timeZone: 'America/New_York',
-      hour: '2-digit',
-      minute: '2-digit',
-      hour12: false,
-    })
-  } catch {
-    return '00:00'
-  }
-}
-
-function extractYear(period: string) {
-  const years = period.match(/20\d{2}/g)
-  return years?.at(-1) ?? period
+function getMarqueeLabels() {
+  return ['Healthy Amplified', 'Mirae Asset', 'Handshake AI', 'UMD FIRE', 'Tailored', 'vPhrase']
 }
 
 function getPeriodEndLabel(period: string) {
-  const segments = period.split(/[—–]/).map((segment) => segment.trim()).filter(Boolean)
-  return segments.at(-1) ?? period
+  return period.split('—').pop()?.trim() ?? period.trim()
 }
 
-function monthYearToTimestamp(label: string) {
-  const normalized = label.replace(/,/g, '').trim()
-  const monthMap: Record<string, number> = {
-    jan: 0,
-    feb: 1,
-    mar: 2,
-    apr: 3,
-    may: 4,
-    jun: 5,
-    jul: 6,
-    aug: 7,
-    sep: 8,
-    oct: 9,
-    nov: 10,
-    dec: 11,
+function monthLabelToTimestamp(label: string) {
+  const cleaned = label.replace(/\s+/g, ' ').trim()
+  const [month, year] = cleaned.split(' ')
+  const monthIndex = monthLookup[month] ?? 0
+  const numericYear = Number.parseInt(year, 10)
+
+  if (Number.isNaN(numericYear)) {
+    return 0
   }
 
-  if (/present/i.test(normalized)) {
-    return Number.MAX_SAFE_INTEGER
-  }
-
-  const parts = normalized.split(/\s+/)
-  const monthKey = parts[0]?.slice(0, 3).toLowerCase()
-  const month = monthKey in monthMap ? monthMap[monthKey] : 0
-  const yearMatch = normalized.match(/20\d{2}/)
-  const year = yearMatch ? Number(yearMatch[0]) : 0
-
-  if (!year) return 0
-  return new Date(year, month, 1).getTime()
+  return new Date(numericYear, monthIndex, 1).getTime()
 }
 
-function clamp(value: number, min: number, max: number) {
-  return Math.min(max, Math.max(min, value))
-}
-
-function capitalize(value: string) {
-  return value ? `${value[0].toUpperCase()}${value.slice(1)}` : value
+const monthLookup: Record<string, number> = {
+  Jan: 0,
+  Feb: 1,
+  Mar: 2,
+  Apr: 3,
+  May: 4,
+  Jun: 5,
+  Jul: 6,
+  Aug: 7,
+  Sep: 8,
+  Oct: 9,
+  Nov: 10,
+  Dec: 11,
 }
 
 export default App
