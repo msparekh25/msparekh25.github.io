@@ -41,7 +41,7 @@ export function HeroSection({
                 className={cn(styles.button, styles.buttonPrimary)}
                 href={links.resumeUrl}
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
               >
                 View Resume
               </a>

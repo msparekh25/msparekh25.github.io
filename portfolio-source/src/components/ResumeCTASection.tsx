@@ -42,7 +42,7 @@ export function ResumeCTASection({ links, highlights, reducedMotion }: ResumeCTA
               className={cn(styles.button, styles.buttonSecondary)}
               href={links.resumeUrl}
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
             >
               Open PDF
             </a>

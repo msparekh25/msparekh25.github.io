@@ -90,7 +90,13 @@ export function ProjectDetailPanel({
           {project.links && project.links.length ? (
             <div className={styles.projectLinksRow}>
               {project.links.map((link) => (
-                <a key={link.href} className={styles.inlineLink} href={link.href} target="_blank" rel="noreferrer">
+                <a
+                  key={link.href}
+                  className={styles.inlineLink}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   {link.label}
                 </a>
               ))}

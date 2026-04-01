@@ -7,8 +7,6 @@ import { FloatingNav } from './FloatingNav'
 interface SiteShellProps {
   children: ReactNode
   navItems: NavItem[]
-  activeSectionId: string
-  isScrolled: boolean
   links: ExternalLinks
   reducedMotion: boolean
 }
@@ -16,8 +14,6 @@ interface SiteShellProps {
 export function SiteShell({
   children,
   navItems,
-  activeSectionId,
-  isScrolled,
   links,
   reducedMotion,
 }: SiteShellProps) {
@@ -26,9 +22,11 @@ export function SiteShell({
       <BackgroundEffects reducedMotion={reducedMotion} />
       <FloatingNav
         items={navItems}
-        activeSectionId={activeSectionId}
-        isScrolled={isScrolled}
         links={links}
+        clockText=""
+        onNavigate={() => undefined}
+        theme="dark"
+        onToggleTheme={() => undefined}
       />
       <main className={styles.mainContent}>{children}</main>
     </div>

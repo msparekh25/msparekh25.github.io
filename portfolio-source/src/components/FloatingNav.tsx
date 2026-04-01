@@ -1,44 +1,57 @@
-import type { ExternalLinks, NavItem } from '../types/content'
-import styles from '../styles/Portfolio.module.css'
+import { useActiveSection } from '../hooks/useActiveSection'
+import styles from '../styles/JoshwPortfolio.module.css'
 import { cn } from '../utils/cn'
 
 interface FloatingNavProps {
-  items: NavItem[]
-  activeSectionId: string
-  isScrolled: boolean
-  links: ExternalLinks
+  items: Array<{ id: string; label: string }>
+  links: { email: string; location: string }
+  clockText: string
+  onNavigate: (sectionId: 'work' | 'experience' | 'toolkit' | 'contact') => void
+  theme: 'dark' | 'light'
+  onToggleTheme: () => void
 }
 
-export function FloatingNav({ items, activeSectionId, isScrolled, links }: FloatingNavProps) {
-  return (
-    <nav className={cn(styles.floatingNav, isScrolled && styles.floatingNavScrolled)} aria-label="Primary">
-      <a className={styles.brand} href="#top">
-        <span className={styles.brandDot} />
-        Mann Parekh
-      </a>
+export function FloatingNav({ items, links, clockText, onNavigate, theme, onToggleTheme }: FloatingNavProps) {
+  const { activeSectionId } = useActiveSection(items.map((item) => item.id))
 
-      <div className={styles.navScrollWrap}>
-        <ul className={styles.navList}>
-          {items.map((item) => {
-            const isActive = activeSectionId === item.id
-            return (
-              <li key={item.id}>
-                <a
-                  href={`#${item.id}`}
-                  className={cn(styles.navLink, isActive && styles.navLinkActive)}
-                  aria-current={isActive ? 'location' : undefined}
-                >
-                  {item.label}
-                </a>
-              </li>
-            )
-          })}
-        </ul>
+  return (
+    <header className={styles.topBar}>
+      <div className={styles.topBarLeft}>
+        <div className={styles.topChip}>
+          {clockText} <span>(EST)</span>
+        </div>
+        <div className={styles.topChip}>{links.location}</div>
       </div>
 
-      <a className={styles.navEmail} href={`mailto:${links.email}`}>
-        {links.email}
-      </a>
-    </nav>
+      <nav className={styles.topBarNav} aria-label="Section navigation">
+        {items.map((item) => {
+          const isActive = activeSectionId === item.id
+
+          return (
+            <button
+              key={item.id}
+              type="button"
+              onClick={() => onNavigate(item.id as 'work' | 'experience' | 'toolkit' | 'contact')}
+              className={cn(styles.navButton, isActive && styles.navButtonActive)}
+              aria-current={isActive ? 'location' : undefined}
+            >
+              {item.label}
+            </button>
+          )
+        })}
+        <a className={styles.navButton} href={`mailto:${links.email}`}>
+          Email
+        </a>
+        <button
+          type="button"
+          className={styles.themeToggle}
+          onClick={onToggleTheme}
+          aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+          aria-pressed={theme === 'light'}
+        >
+          {theme === 'dark' ? 'Light mode' : 'Dark mode'}
+        </button>
+      </nav>
+    </header>
   )
 }
