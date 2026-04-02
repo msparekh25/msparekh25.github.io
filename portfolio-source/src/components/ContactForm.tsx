@@ -24,6 +24,7 @@ export function ContactForm({ recipientEmail }: ContactFormProps) {
   const [errors, setErrors] = useState<FormErrors>({})
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [statusMessage, setStatusMessage] = useState('')
   const formId = useId()
 
   const handleChange =
@@ -40,16 +41,18 @@ export function ContactForm({ recipientEmail }: ContactFormProps) {
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors)
       setIsSubmitted(false)
+      setStatusMessage('')
       return
     }
 
     setIsSubmitting(true)
 
     try {
-      await submitContactMessage(values)
+      await submitContactMessage(values, recipientEmail)
       setValues(initialValues)
       setErrors({})
       setIsSubmitted(true)
+      setStatusMessage('Your email client should open with a drafted message to Mann.')
     } finally {
       setIsSubmitting(false)
     }
@@ -58,8 +61,8 @@ export function ContactForm({ recipientEmail }: ContactFormProps) {
   return (
     <div className={styles.contactFormWrap}>
       <p className={styles.formIntro}>
-        Send a note directly to <span>{recipientEmail}</span>. This placeholder submit handler is ready to be swapped
-        for EmailJS or another delivery service later.
+        Send a note directly to <span>{recipientEmail}</span>. This form uses a working mail client fallback for now,
+        and it can be upgraded to EmailJS later if you want in-browser delivery.
       </p>
 
       <form className={styles.contactForm} onSubmit={handleSubmit} noValidate>
@@ -138,7 +141,7 @@ export function ContactForm({ recipientEmail }: ContactFormProps) {
         <div className={styles.formStatus} aria-live="polite">
           {isSubmitted ? (
             <p className={styles.successMessage}>
-              Thanks for reaching out. Your message is queued, and the form has been reset.
+              Thanks for reaching out. {statusMessage}
             </p>
           ) : null}
         </div>
@@ -169,7 +172,14 @@ function validate(values: FormValues) {
   return nextErrors
 }
 
-async function submitContactMessage(values: FormValues) {
-  await new Promise((resolve) => window.setTimeout(resolve, 650))
+async function submitContactMessage(values: FormValues, recipientEmail: string) {
+  const subject = encodeURIComponent(`Portfolio inquiry from ${values.name}`)
+  const body = encodeURIComponent(
+    `Name: ${values.name}\nEmail: ${values.email}\n\n${values.message}`,
+  )
+
+  window.location.href = `mailto:${recipientEmail}?subject=${subject}&body=${body}`
+
+  await new Promise((resolve) => window.setTimeout(resolve, 200))
   return values
 }
