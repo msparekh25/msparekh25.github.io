@@ -4,6 +4,7 @@ import { HomePage } from './pages/HomePage'
 import { ProjectPage } from './pages/ProjectPage'
 
 type Theme = 'dark' | 'light'
+const THEME_STORAGE_KEY = 'portfolio-theme-v2'
 
 function App() {
   const [theme, setTheme] = useState<Theme>(getInitialTheme)
@@ -11,7 +12,7 @@ function App() {
   useEffect(() => {
     document.documentElement.dataset.theme = theme
     document.documentElement.style.colorScheme = theme
-    window.localStorage.setItem('portfolio-theme', theme)
+    window.localStorage.setItem(THEME_STORAGE_KEY, theme)
   }, [theme])
 
   return (
@@ -47,14 +48,14 @@ function toggleTheme(currentTheme: Theme): Theme {
 }
 
 function getInitialTheme(): Theme {
-  if (typeof window === 'undefined') return 'dark'
+  if (typeof window === 'undefined') return 'light'
 
-  const savedTheme = window.localStorage.getItem('portfolio-theme')
+  const savedTheme = window.localStorage.getItem(THEME_STORAGE_KEY)
   if (savedTheme === 'light' || savedTheme === 'dark') {
     return savedTheme
   }
 
-  return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'
+  return 'light'
 }
 
 export default App

@@ -936,8 +936,8 @@
 .subtleBlock {
   margin-top: 18px;
   border-radius: var(--radius-md);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--panel-border);
+  background: var(--panel-surface);
   padding: 14px;
 }
 
@@ -952,7 +952,7 @@
   justify-content: space-between;
   gap: 14px;
   flex-wrap: wrap;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-top: 1px solid var(--panel-border);
   padding-top: 10px;
 }
 
@@ -986,9 +986,10 @@
 .codePanel {
   width: 100%;
   border-radius: var(--radius-sm);
-  border: 1px solid rgba(255, 255, 255, 0.078);
-  background: var(--slate);
+  border: 1px solid var(--panel-border);
+  background: var(--panel-surface);
   overflow: hidden;
+  box-shadow: 0 16px 32px rgba(38, 16, 24, 0.06);
 }
 
 .codePanelHeader {
@@ -1001,7 +1002,7 @@
   align-items: center;
   gap: 12px;
   background: var(--header-c);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid var(--panel-border);
 }
 
 .codeDots {
@@ -1050,14 +1051,18 @@
   display: grid;
   gap: 8px;
   min-height: 240px;
-  background:
-    linear-gradient(to right, rgba(255, 255, 255, 0.015) 8%, rgba(255, 255, 255, 0.03) 38%, rgba(255, 255, 255, 0.015) 54%);
+  background: linear-gradient(
+    to right,
+    transparent 8%,
+    var(--panel-surface-strong) 38%,
+    transparent 54%
+  );
   background-size: 200% 100%;
   animation: placeholderShimmer 1.8s linear infinite;
 }
 
 .codePanelBody > * {
-  background: var(--slate);
+  background: transparent;
 }
 
 .codeLine {
@@ -1077,38 +1082,38 @@
 }
 
 .codeLineNumber {
-  color: rgba(255, 255, 255, 0.35);
+  color: var(--code-line-number);
   text-align: right;
 }
 
 .codeLabel {
-  color: var(--accent-sky);
+  color: var(--accent);
 }
 
 .codeEquals {
-  color: rgba(255, 255, 255, 0.5);
+  color: var(--code-equals);
   text-align: center;
 }
 
 .codeValue {
-  color: #ebefff;
+  color: var(--code-value);
   overflow-wrap: anywhere;
 }
 
 .accentViolet {
-  color: #bb9af7;
+  color: var(--code-accent-violet);
 }
 
 .accentBlue {
-  color: #7aa2f7;
+  color: var(--code-accent-blue);
 }
 
 .accentTeal {
-  color: #73daca;
+  color: var(--code-accent-teal);
 }
 
 .accentIndigo {
-  color: #c0caf5;
+  color: var(--code-accent-indigo);
 }
 
 .toolkitNotes {
@@ -1120,8 +1125,8 @@
 
 .toolkitNotes > div {
   border-radius: var(--radius-md);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--panel-border);
+  background: var(--panel-surface);
   padding: 14px;
 }
 
@@ -1146,8 +1151,8 @@
 
 .contactCard {
   border-radius: var(--radius-lg);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--panel-border);
+  background: var(--panel-surface);
   padding: 16px;
 }
 
@@ -1183,7 +1188,7 @@
   min-height: 38px;
   border-radius: 999px;
   padding: 8px 14px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid var(--panel-border-strong);
   font-family: 'Inter', ui-sans-serif, sans-serif;
   font-size: 0.88rem;
   line-height: 1;
@@ -1197,7 +1202,7 @@
 }
 
 .secondaryCta {
-  background: rgba(255, 255, 255, 0.02);
+  background: var(--panel-surface);
   color: var(--white-75);
 }
 
@@ -1249,8 +1254,8 @@
 .formTextarea {
   width: 100%;
   border-radius: var(--radius-md);
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--field-border);
+  background: var(--field-surface);
   color: var(--white);
   padding: 0.85rem 0.95rem;
   font-family: 'Inter', ui-sans-serif, sans-serif;
@@ -1266,7 +1271,7 @@
 
 .formInput:hover,
 .formTextarea:hover {
-  border-color: rgba(255, 255, 255, 0.22);
+  border-color: var(--field-border-hover);
 }
 
 .formHint {
@@ -1298,7 +1303,7 @@
   display: grid;
   grid-template-columns: 90px minmax(0, 1fr);
   gap: 10px;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: 1px solid var(--panel-border);
   padding-top: 8px;
 }
 
