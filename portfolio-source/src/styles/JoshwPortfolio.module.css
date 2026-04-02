@@ -123,7 +123,7 @@
   border: 1px solid rgba(255, 255, 255, 0.14);
   background: rgba(255, 255, 255, 0.02);
   color: var(--white-75);
-  font-family: 'Inter', ui-sans-serif, sans-serif;
+  font-family: var(--font-sans);
   font-size: 0.84rem;
   line-height: 1;
   transition:
@@ -241,7 +241,7 @@
 
 .heroName h1 {
   margin: 0;
-  font-family: 'Instrument Serif', 'Times New Roman', serif;
+  font-family: var(--font-serif);
   font-size: clamp(3.3rem, 8vw, 8.6rem);
   font-weight: 400;
   line-height: 0.9;
@@ -255,7 +255,7 @@
 .heroIntro {
   margin: 0;
   color: var(--white-75);
-  font-family: 'Inter', ui-sans-serif, sans-serif;
+  font-family: var(--font-sans);
   font-size: clamp(1rem, 0.94rem + 0.35vw, 1.25rem);
   line-height: 1.5;
   text-wrap: pretty;
@@ -283,7 +283,7 @@
 .textLink {
   position: relative;
   color: var(--white);
-  font-family: 'Inter', ui-sans-serif, sans-serif;
+  font-family: var(--font-sans);
   font-size: 0.95rem;
   opacity: 0.8;
   text-decoration: underline;
@@ -319,6 +319,8 @@
   margin: 0 auto;
   padding: 0 var(--main-padding);
   scroll-margin-top: 28px;
+  content-visibility: auto;
+  contain-intrinsic-size: 720px;
 }
 
 .sectionHeader {
@@ -332,7 +334,7 @@
 
 .sectionHeader h2 {
   margin: 0;
-  font-family: 'Instrument Serif', 'Times New Roman', serif;
+  font-family: var(--font-serif);
   font-weight: 400;
   font-size: clamp(1.8rem, 1.25rem + 1.1vw, 2.6rem);
   line-height: 1.08;
@@ -341,7 +343,7 @@
 
 .sectionHeader p {
   margin: 6px 0 0;
-  font-family: 'Inter', ui-sans-serif, sans-serif;
+  font-family: var(--font-sans);
   font-size: 0.95rem;
   color: var(--white-75);
   line-height: 1.5;
@@ -350,7 +352,7 @@
 
 .microLabel {
   color: var(--white-75);
-  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-family: var(--font-mono);
   font-size: 0.72rem;
   line-height: 1;
   letter-spacing: 0.02em;
@@ -369,6 +371,8 @@
   display: flex;
   flex-direction: column;
   position: relative;
+  content-visibility: auto;
+  contain-intrinsic-size: 560px;
 }
 
 .postCardLink {
@@ -524,7 +528,7 @@
 .mediaMeta p {
   margin: 0;
   color: var(--white-75);
-  font-family: 'Inter', ui-sans-serif, sans-serif;
+  font-family: var(--font-sans);
   font-size: 0.72rem;
   line-height: 1.25;
   text-align: left;
@@ -543,7 +547,7 @@
 .mediaTitleWrap h3 {
   margin: 0;
   color: var(--white);
-  font-family: 'Instrument Serif', 'Times New Roman', serif;
+  font-family: var(--font-serif);
   font-weight: 400;
   font-size: clamp(1.2rem, 1rem + 0.4vw, 1.55rem);
   line-height: 1.05;
@@ -552,7 +556,7 @@
 .mediaTitleWrap p {
   margin: 0;
   color: var(--white-65);
-  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-family: var(--font-mono);
   font-size: 0.68rem;
   text-transform: uppercase;
 }
@@ -590,7 +594,7 @@
 .mediaOverlayInner h4 {
   margin: 0;
   color: var(--white);
-  font-family: 'Instrument Serif', 'Times New Roman', serif;
+  font-family: var(--font-serif);
   font-weight: 400;
   font-size: clamp(1.15rem, 0.95rem + 0.4vw, 1.55rem);
 }
@@ -667,7 +671,7 @@
 .postContent h3 {
   margin: 0;
   color: var(--white);
-  font-family: 'Instrument Serif', 'Times New Roman', serif;
+  font-family: var(--font-serif);
   font-weight: 400;
   font-size: clamp(1.4rem, 1.1rem + 0.4vw, 1.7rem);
   line-height: 1.1;
@@ -676,7 +680,7 @@
 .postDescription {
   margin: 8px 0 0;
   color: var(--white-75);
-  font-family: 'Inter', ui-sans-serif, sans-serif;
+  font-family: var(--font-sans);
   font-size: 0.94rem;
   line-height: 1.49;
   text-wrap: pretty;
@@ -685,7 +689,7 @@
 .postSummaryLine {
   margin: 0 0 8px;
   color: var(--white-65);
-  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-family: var(--font-mono);
   font-size: 0.75rem;
   line-height: 1.45;
   text-transform: uppercase;
@@ -715,7 +719,7 @@
   border: 1px solid rgba(255, 255, 255, 0.12);
   background: rgba(255, 255, 255, 0.02);
   color: var(--white-75);
-  font-family: 'Inter', ui-sans-serif, sans-serif;
+  font-family: var(--font-sans);
   font-size: 0.72rem;
   line-height: 1;
   padding: 6px 10px;
@@ -752,7 +756,7 @@
 .slidingLetter > span {
   display: block;
   color: var(--white-75);
-  font-family: 'Inter', ui-sans-serif, sans-serif;
+  font-family: var(--font-sans);
   font-size: 0.95rem;
   line-height: 1.15;
   transition: transform 0.35s ease;
@@ -805,7 +809,7 @@
 .detailPanelHeader h3 {
   margin: 4px 0 0;
   color: var(--white);
-  font-family: 'Instrument Serif', 'Times New Roman', serif;
+  font-family: var(--font-serif);
   font-size: clamp(1.5rem, 1.2rem + 0.7vw, 2.1rem);
   font-weight: 400;
   line-height: 1.05;
@@ -814,7 +818,7 @@
 .detailPanelHeader p {
   margin: 6px 0 0;
   color: var(--white-65);
-  font-family: 'Inter', ui-sans-serif, sans-serif;
+  font-family: var(--font-sans);
   font-size: 0.9rem;
 }
 
@@ -839,7 +843,7 @@
 .detailBodyText,
 .detailBodyMuted {
   margin: 0;
-  font-family: 'Inter', ui-sans-serif, sans-serif;
+  font-family: var(--font-sans);
   font-size: 0.95rem;
   line-height: 1.5;
 }
@@ -862,7 +866,7 @@
 .detailList li,
 .timelineRowAside li {
   color: var(--white-75);
-  font-family: 'Inter', ui-sans-serif, sans-serif;
+  font-family: var(--font-sans);
   font-size: 0.9rem;
   line-height: 1.45;
 }
@@ -879,6 +883,8 @@
   align-items: start;
   padding: 16px 0;
   border-top: 1px solid var(--divider);
+  content-visibility: auto;
+  contain-intrinsic-size: 220px;
 }
 
 .timelineRow:first-child {
@@ -894,14 +900,14 @@
 .timelineRowMeta p {
   margin: 0;
   color: var(--white-65);
-  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-family: var(--font-mono);
   font-size: 0.76rem;
 }
 
 .timelineRowMain h3 {
   margin: 0;
   color: var(--white);
-  font-family: 'Instrument Serif', 'Times New Roman', serif;
+  font-family: var(--font-serif);
   font-weight: 400;
   font-size: clamp(1.4rem, 1.1rem + 0.4vw, 1.7rem);
   line-height: 1.12;
@@ -910,7 +916,7 @@
 .timelineOrg {
   margin: 6px 0 0;
   color: var(--white);
-  font-family: 'Inter', ui-sans-serif, sans-serif;
+  font-family: var(--font-sans);
   font-size: 0.95rem;
 }
 
@@ -921,7 +927,7 @@
 .timelineSummary {
   margin: 10px 0 12px;
   color: var(--white-75);
-  font-family: 'Inter', ui-sans-serif, sans-serif;
+  font-family: var(--font-sans);
   font-size: 0.93rem;
   line-height: 1.5;
 }
@@ -964,7 +970,7 @@
 .compactExperienceItem p,
 .compactExperienceItem span {
   margin: 0;
-  font-family: 'Inter', ui-sans-serif, sans-serif;
+  font-family: var(--font-sans);
   font-size: 0.84rem;
   line-height: 1.4;
 }
@@ -990,6 +996,8 @@
   background: var(--panel-surface);
   overflow: hidden;
   box-shadow: 0 16px 32px rgba(38, 16, 24, 0.06);
+  content-visibility: auto;
+  contain-intrinsic-size: 340px;
 }
 
 .codePanelHeader {
@@ -1032,7 +1040,7 @@
 .codePanelHeader p,
 .codePanelHeader label {
   margin: 0;
-  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-family: var(--font-mono);
   font-size: 0.75rem;
   line-height: 1;
 }
@@ -1076,7 +1084,7 @@
 .codeLabel,
 .codeEquals,
 .codeValue {
-  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-family: var(--font-mono);
   font-size: 0.78rem;
   line-height: 1.4;
 }
@@ -1138,7 +1146,7 @@
 }
 
 .courseChip {
-  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-family: var(--font-mono);
   font-size: 0.68rem;
   color: var(--white-65);
 }
@@ -1154,11 +1162,13 @@
   border: 1px solid var(--panel-border);
   background: var(--panel-surface);
   padding: 16px;
+  content-visibility: auto;
+  contain-intrinsic-size: 460px;
 }
 
 .contactCard h3 {
   margin: 8px 0 0;
-  font-family: 'Instrument Serif', 'Times New Roman', serif;
+  font-family: var(--font-serif);
   font-size: clamp(1.7rem, 1.3rem + 0.8vw, 2.3rem);
   font-weight: 400;
   line-height: 1.06;
@@ -1168,7 +1178,7 @@
 .contactCard > p {
   margin: 10px 0 0;
   color: var(--white-75);
-  font-family: 'Inter', ui-sans-serif, sans-serif;
+  font-family: var(--font-sans);
   font-size: 0.95rem;
   line-height: 1.5;
 }
@@ -1189,7 +1199,7 @@
   border-radius: 999px;
   padding: 8px 14px;
   border: 1px solid var(--panel-border-strong);
-  font-family: 'Inter', ui-sans-serif, sans-serif;
+  font-family: var(--font-sans);
   font-size: 0.88rem;
   line-height: 1;
   transition: transform 0.25s ease, background-color 0.25s ease, border-color 0.25s ease;
@@ -1223,7 +1233,7 @@
 
 .formIntro {
   color: var(--white-65);
-  font-family: 'Inter', ui-sans-serif, sans-serif;
+  font-family: var(--font-sans);
   font-size: 0.9rem;
   line-height: 1.55;
 }
@@ -1245,7 +1255,7 @@
 
 .formLabel {
   color: var(--white);
-  font-family: 'Inter', ui-sans-serif, sans-serif;
+  font-family: var(--font-sans);
   font-size: 0.88rem;
   font-weight: 600;
 }
@@ -1258,7 +1268,7 @@
   background: var(--field-surface);
   color: var(--white);
   padding: 0.85rem 0.95rem;
-  font-family: 'Inter', ui-sans-serif, sans-serif;
+  font-family: var(--font-sans);
   font-size: 0.95rem;
   line-height: 1.5;
   transition: border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
@@ -1276,14 +1286,14 @@
 
 .formHint {
   color: var(--white-50);
-  font-family: 'Inter', ui-sans-serif, sans-serif;
+  font-family: var(--font-sans);
   font-size: 0.82rem;
   line-height: 1.45;
 }
 
 .formError {
   color: #ffb1db;
-  font-family: 'Inter', ui-sans-serif, sans-serif;
+  font-family: var(--font-sans);
   font-size: 0.82rem;
   line-height: 1.45;
 }
@@ -1294,7 +1304,7 @@
 
 .successMessage {
   color: var(--white);
-  font-family: 'Inter', ui-sans-serif, sans-serif;
+  font-family: var(--font-sans);
   font-size: 0.9rem;
   line-height: 1.5;
 }
@@ -1316,7 +1326,7 @@
 .contactRow p,
 .contactRow a {
   margin: 0;
-  font-family: 'Inter', ui-sans-serif, sans-serif;
+  font-family: var(--font-sans);
   font-size: 0.86rem;
   line-height: 1.45;
   color: var(--white-75);
@@ -1339,7 +1349,7 @@
   padding-top: 12px;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
   color: var(--white-65);
-  font-family: 'Inter', ui-sans-serif, sans-serif;
+  font-family: var(--font-sans);
   font-size: 0.8rem;
   line-height: 1.45;
 }
@@ -1375,7 +1385,7 @@
 .projectPageTitle {
   margin: 0;
   color: var(--white);
-  font-family: 'Instrument Serif', 'Times New Roman', serif;
+  font-family: var(--font-serif);
   font-weight: 400;
   font-size: clamp(2.7rem, 6vw, 5rem);
   line-height: 0.98;
@@ -1383,7 +1393,7 @@
 
 .projectPageSubtitle {
   color: var(--white-75);
-  font-family: 'Inter', ui-sans-serif, sans-serif;
+  font-family: var(--font-sans);
   font-size: clamp(1rem, 0.96rem + 0.28vw, 1.25rem);
   line-height: 1.5;
 }
@@ -1403,14 +1413,14 @@
   border: 1px solid var(--divider);
   background: var(--muted-surface);
   color: var(--white-65);
-  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-family: var(--font-mono);
   font-size: 0.72rem;
 }
 
 .projectPageSummary {
   max-width: 70ch;
   color: var(--white-75);
-  font-family: 'Inter', ui-sans-serif, sans-serif;
+  font-family: var(--font-sans);
   font-size: 1rem;
   line-height: 1.7;
 }
@@ -1431,7 +1441,7 @@
 .projectSidebarText {
   margin-top: 10px;
   color: var(--white-75);
-  font-family: 'Inter', ui-sans-serif, sans-serif;
+  font-family: var(--font-sans);
   font-size: 0.95rem;
   line-height: 1.6;
 }
@@ -1447,12 +1457,14 @@
   background: var(--surface);
   box-shadow: var(--shadow-soft);
   padding: 20px;
+  content-visibility: auto;
+  contain-intrinsic-size: 320px;
 }
 
 .projectPageSection h2 {
   margin: 0 0 14px;
   color: var(--white);
-  font-family: 'Instrument Serif', 'Times New Roman', serif;
+  font-family: var(--font-serif);
   font-size: clamp(1.55rem, 1.15rem + 0.5vw, 2rem);
   font-weight: 400;
   line-height: 1.12;
@@ -1461,7 +1473,7 @@
 .projectPageSection p {
   margin: 12px 0 0;
   color: var(--white-75);
-  font-family: 'Inter', ui-sans-serif, sans-serif;
+  font-family: var(--font-sans);
   font-size: 0.96rem;
   line-height: 1.65;
 }
@@ -1475,7 +1487,7 @@
 
 .projectBulletList li {
   color: var(--white-75);
-  font-family: 'Inter', ui-sans-serif, sans-serif;
+  font-family: var(--font-sans);
   font-size: 0.94rem;
   line-height: 1.6;
 }
@@ -1492,7 +1504,7 @@
 
 .footerBar span {
   color: var(--white-50);
-  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-family: var(--font-mono);
   font-size: 0.72rem;
 }
 
@@ -1600,11 +1612,19 @@
     padding-top: 18px;
   }
 
+  .topBar {
+    position: relative;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding-top: 18px;
+  }
+
   .heroTextWrap {
     width: 100%;
     min-width: 0;
-    margin-top: 92px;
-    margin-bottom: 40px;
+    margin-top: 32px;
+    margin-bottom: 32px;
   }
 
   .timelineRow {
@@ -1631,16 +1651,39 @@
 
 @media (max-width: 767px) {
   .topBar {
-    top: 20px;
-    gap: 12px;
+    gap: 10px;
+    padding-top: 12px;
   }
 
-  .topBarNav {
+  .topBarLeft {
+    width: 100%;
+    justify-content: space-between;
     gap: 8px;
   }
 
+  .topBarNav {
+    width: 100%;
+    gap: 8px;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 2px;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .topBarNav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .topChip,
+  .navButton,
+  .themeToggle {
+    flex: 0 0 auto;
+    white-space: nowrap;
+  }
+
   .heroInner {
-    min-height: 56vh;
+    min-height: auto;
   }
 
   .heroName h1 {
@@ -1649,6 +1692,12 @@
 
   .heroIntro {
     font-size: 0.96rem;
+  }
+
+  .heroLinks {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
   }
 
   .sectionHeader {
@@ -1675,6 +1724,7 @@
 
   .postFooter {
     align-items: flex-start;
+    flex-direction: column;
   }
 
   .tagRow {
@@ -1691,8 +1741,30 @@
     gap: 6px;
   }
 
+  .contactCard {
+    padding: 14px;
+  }
+
+  .contactCard h3 {
+    font-size: clamp(1.55rem, 6vw, 2rem);
+  }
+
   .contactRow {
     grid-template-columns: 74px minmax(0, 1fr);
+  }
+
+  .projectPageHeader,
+  .projectPageActions {
+    width: 100%;
+  }
+
+  .projectPageActions {
+    justify-content: stretch;
+  }
+
+  .projectPageActions > * {
+    flex: 1 1 0;
+    min-width: 0;
   }
 
   .projectPageShell {
@@ -1710,6 +1782,109 @@
 
   .footerBar {
     margin-bottom: 40px;
+  }
+}
+
+@media (max-width: 560px) {
+  .pageShell {
+    --main-padding: 14px;
+  }
+
+  .heroSection {
+    min-height: 0;
+  }
+
+  .topBarLeft {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .heroTextWrap {
+    gap: 10px;
+  }
+
+  .heroName h1 {
+    font-size: clamp(2.35rem, 13vw, 3.7rem);
+    line-height: 0.94;
+  }
+
+  .heroIntro {
+    font-size: 0.92rem;
+  }
+
+  .mediaMeta,
+  .mediaTitleWrap {
+    padding: 10px 11px;
+  }
+
+  .postContent h3,
+  .timelineRowMain h3,
+  .projectPageSection h2 {
+    line-height: 1.15;
+  }
+
+  .codePanelHeader {
+    height: auto;
+    min-height: 48px;
+    padding: 10px 12px;
+  }
+
+  .codePanelBody {
+    min-height: 0;
+    padding: 12px;
+  }
+
+  .codeLine {
+    grid-template-columns: 24px minmax(0, 1fr);
+    gap: 4px 8px;
+  }
+
+  .codeLineNumber {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+    padding-top: 1px;
+  }
+
+  .codeLabel {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .codeEquals {
+    display: none;
+  }
+
+  .codeValue {
+    grid-column: 2;
+    grid-row: 2;
+    font-size: 0.74rem;
+  }
+
+  .toolkitNotes,
+  .contactGrid {
+    gap: 14px;
+  }
+
+  .contactCard > p,
+  .projectSidebarText,
+  .projectPageSummary {
+    font-size: 0.92rem;
+  }
+
+  .formInput,
+  .formTextarea,
+  .primaryCta {
+    width: 100%;
+  }
+
+  .contactRow {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+
+  .footerBar {
+    flex-direction: column;
+    gap: 6px;
   }
 }
 

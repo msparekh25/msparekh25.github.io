@@ -1,4 +1,4 @@
-import { type CSSProperties, type MouseEvent, type ReactNode, useEffect, useMemo, useRef, useState } from 'react'
+import { type CSSProperties, type MouseEvent, type ReactNode, useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { ContactSection } from '../components/ContactSection'
 import { FloatingNav } from '../components/FloatingNav'
@@ -43,8 +43,6 @@ export function HomePage({ theme, onToggleTheme }: HomePageProps) {
     toolkit: null,
     contact: null,
   })
-
-  const featuredCaseStudies = useMemo(() => caseStudies, [])
 
   useEffect(() => {
     if (reducedMotion) {
@@ -236,7 +234,7 @@ export function HomePage({ theme, onToggleTheme }: HomePageProps) {
             />
 
             <div className={styles.postGrid}>
-              {featuredCaseStudies.map((card, index) => (
+              {caseStudies.map((card, index) => (
                 <PostPreviewCard key={card.slug} card={card} index={index} />
               ))}
             </div>

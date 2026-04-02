@@ -1,10 +1,13 @@
-import { useEffect, useState } from 'react'
+import { lazy, Suspense, useEffect, useState } from 'react'
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import { HomePage } from './pages/HomePage'
-import { ProjectPage } from './pages/ProjectPage'
 
 type Theme = 'dark' | 'light'
 const THEME_STORAGE_KEY = 'portfolio-theme-v2'
+const ProjectPage = lazy(async () => {
+  const module = await import('./pages/ProjectPage')
+  return { default: module.ProjectPage }
+})
 
 function App() {
   const [theme, setTheme] = useState<Theme>(getInitialTheme)
@@ -21,14 +24,16 @@ function App() {
         Skip to main content
       </a>
       <ScrollToTop />
-      <Routes>
-        <Route path="/" element={<HomePage theme={theme} onToggleTheme={() => setTheme(toggleTheme)} />} />
-        <Route
-          path="/projects/:slug"
-          element={<ProjectPage theme={theme} onToggleTheme={() => setTheme(toggleTheme)} />}
-        />
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Routes>
+      <Suspense fallback={null}>
+        <Routes>
+          <Route path="/" element={<HomePage theme={theme} onToggleTheme={() => setTheme(toggleTheme)} />} />
+          <Route
+            path="/projects/:slug"
+            element={<ProjectPage theme={theme} onToggleTheme={() => setTheme(toggleTheme)} />}
+          />
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </Suspense>
     </>
   )
 }
