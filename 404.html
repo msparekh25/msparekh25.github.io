@@ -1,31 +1,50 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <meta charset="utf-8" />
-    <title>Redirecting…</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Mann Parekh's portfolio focused on FP&A, financial modeling, analytics, and AI-enabled decision support."
+    />
+    <meta name="theme-color" content="#000000" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Mann Parekh | Finance & Analytics Portfolio" />
+    <meta
+      property="og:description"
+      content="Quantitative finance, FP&A, and data analytics portfolio with professional experience, projects, and resume."
+    />
+    <meta property="og:image" content="/og-banner.svg" />
+    <meta property="og:url" content="https://msparekh25.github.io/" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Mann Parekh | Finance & Analytics Portfolio" />
+    <meta
+      name="twitter:description"
+      content="FP&A, financial modeling, and AI/data analytics portfolio for recruiting and internships."
+    />
+    <meta name="twitter:image" content="/og-banner.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
     <script>
-      ;(function () {
-        const pathSegmentsToKeep = 0
-        const locationRef = window.location
-        const redirectTarget =
-          locationRef.protocol +
-          '//' +
-          locationRef.hostname +
-          (locationRef.port ? ':' + locationRef.port : '') +
-          locationRef.pathname.split('/').slice(0, 1 + pathSegmentsToKeep).join('/') +
-          '/?/' +
-          locationRef.pathname
-            .slice(1)
-            .split('/')
-            .slice(pathSegmentsToKeep)
-            .join('/')
-            .replace(/&/g, '~and~') +
-          (locationRef.search ? '&' + locationRef.search.slice(1).replace(/&/g, '~and~') : '') +
-          locationRef.hash
-
-        locationRef.replace(redirectTarget)
-      })()
+      ;(function (location) {
+        if (location.search[1] !== '/') return
+        const decoded = location.search
+          .slice(1)
+          .split('&')
+          .map((segment) => segment.replace(/~and~/g, '&'))
+          .join('?')
+        window.history.replaceState(null, '', location.pathname.slice(0, -1) + decoded + location.hash)
+      })(window.location)
     </script>
+    <title>Mann Parekh | Finance & Analytics Portfolio</title>
+    <script type="module" crossorigin src="/assets/index--pV2KP-B.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-D3HVVvOp.css">
   </head>
-  <body></body>
+  <body>
+    <div id="root"></div>
+  </body>
 </html>

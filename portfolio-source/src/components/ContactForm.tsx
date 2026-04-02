@@ -34,7 +34,7 @@ export function ContactForm({ recipientEmail }: ContactFormProps) {
       setErrors((current) => ({ ...current, [field]: undefined }))
     }
 
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     const validationErrors = validate(values)
 
@@ -48,11 +48,11 @@ export function ContactForm({ recipientEmail }: ContactFormProps) {
     setIsSubmitting(true)
 
     try {
-      await submitContactMessage(values, recipientEmail)
+      submitContactMessage(values, recipientEmail)
       setValues(initialValues)
       setErrors({})
       setIsSubmitted(true)
-      setStatusMessage('Your email client should open with a drafted message to Mann.')
+      setStatusMessage('A prefilled email draft should now be open to msparekh25@gmail.com.')
     } finally {
       setIsSubmitting(false)
     }
@@ -172,14 +172,11 @@ function validate(values: FormValues) {
   return nextErrors
 }
 
-async function submitContactMessage(values: FormValues, recipientEmail: string) {
+function submitContactMessage(values: FormValues, recipientEmail: string) {
   const subject = encodeURIComponent(`Portfolio inquiry from ${values.name}`)
   const body = encodeURIComponent(
     `Name: ${values.name}\nEmail: ${values.email}\n\n${values.message}`,
   )
 
-  window.location.href = `mailto:${recipientEmail}?subject=${subject}&body=${body}`
-
-  await new Promise((resolve) => window.setTimeout(resolve, 200))
-  return values
+  window.location.assign(`mailto:${recipientEmail}?subject=${subject}&body=${body}`)
 }

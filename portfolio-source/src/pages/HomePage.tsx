@@ -160,6 +160,8 @@ export function HomePage({ theme, onToggleTheme }: HomePageProps) {
   const heroContentStyle = {
     opacity: heroContentOpacity,
     transform: `translate3d(0, ${heroContentShift}px, 0)`,
+  } satisfies CSSProperties
+  const heroLinksStyle = {
     pointerEvents: heroContentOpacity < 0.08 ? 'none' : 'auto',
   } satisfies CSSProperties
 
@@ -199,7 +201,7 @@ export function HomePage({ theme, onToggleTheme }: HomePageProps) {
                     modeling, and decision support. Currently studying at <span>University of Maryland</span> with
                     experience across finance, AI, and research systems.
                   </p>
-                  <div className={styles.heroLinks}>
+                  <div className={styles.heroLinks} style={heroLinksStyle}>
                     <a href={links.resumeUrl} target="_blank" rel="noopener noreferrer" className={styles.textLink}>
                       View Mann Parekh resume
                     </a>
