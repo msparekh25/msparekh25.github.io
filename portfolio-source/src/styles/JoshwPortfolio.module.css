@@ -19,9 +19,9 @@
   pointer-events: none;
   z-index: 0;
   background:
-    radial-gradient(circle at 78% 8%, rgba(16, 0, 255, 0.14), transparent 28%),
-    radial-gradient(circle at 18% 36%, rgba(122, 0, 255, 0.12), transparent 34%),
-    radial-gradient(circle at 65% 72%, rgba(255, 148, 223, 0.07), transparent 42%),
+    radial-gradient(circle at 78% 8%, rgba(226, 165, 108, 0.18), transparent 28%),
+    radial-gradient(circle at 18% 36%, rgba(200, 111, 81, 0.16), transparent 34%),
+    radial-gradient(circle at 65% 72%, rgba(231, 160, 141, 0.1), transparent 42%),
     linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent 18%);
 }
 
@@ -41,8 +41,8 @@
   height: 100%;
   width: 100%;
   transform-origin: left center;
-  background: linear-gradient(90deg, rgba(255, 255, 255, 0.8), rgba(16, 0, 255, 0.9));
-  box-shadow: 0 0 20px rgba(16, 0, 255, 0.4);
+  background: linear-gradient(90deg, rgba(255, 244, 232, 0.85), rgba(226, 165, 108, 0.9));
+  box-shadow: 0 0 20px rgba(200, 111, 81, 0.36);
   animation: loadingBarGrow 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
 }
 
@@ -229,7 +229,7 @@
   gap: clamp(8px, 1vw, 14px);
   text-shadow: none;
   background-color: var(--white);
-  background-image: linear-gradient(14deg, var(--white) 40%, var(--accent-blue));
+  background-image: linear-gradient(14deg, var(--white) 34%, var(--accent-blue));
   background-size: 100%;
   background-repeat: repeat;
   -webkit-background-clip: text;
@@ -467,33 +467,33 @@
 }
 
 .themeViolet {
-  --card-bg: linear-gradient(150deg, #0d0f19 8%, #171227 48%, #221238 100%);
-  --card-glow: rgba(122, 0, 255, 0.34);
+  --card-bg: linear-gradient(150deg, #1a110f 8%, #2b1714 48%, #41211d 100%);
+  --card-glow: rgba(200, 111, 81, 0.34);
 }
 
 .themeBlue {
-  --card-bg: linear-gradient(150deg, #0a0c18 10%, #0f1930 52%, #142043 100%);
-  --card-glow: rgba(16, 0, 255, 0.28);
+  --card-bg: linear-gradient(150deg, #17110e 10%, #2e1a13 52%, #48251a 100%);
+  --card-glow: rgba(226, 165, 108, 0.28);
 }
 
 .themeTeal {
-  --card-bg: linear-gradient(150deg, #081217 8%, #0f1d24 50%, #102d36 100%);
-  --card-glow: rgba(115, 218, 202, 0.22);
+  --card-bg: linear-gradient(150deg, #17110d 8%, #281813 50%, #39221a 100%);
+  --card-glow: rgba(201, 130, 99, 0.24);
 }
 
 .themePlum {
-  --card-bg: linear-gradient(150deg, #121017 10%, #23172c 55%, #361843 100%);
-  --card-glow: rgba(255, 148, 223, 0.2);
+  --card-bg: linear-gradient(150deg, #19110f 10%, #2b1814 55%, #47231c 100%);
+  --card-glow: rgba(231, 160, 141, 0.22);
 }
 
 .themeSlate {
-  --card-bg: linear-gradient(150deg, #0b0d10 10%, #171b20 50%, #242932 100%);
-  --card-glow: rgba(255, 255, 255, 0.11);
+  --card-bg: linear-gradient(150deg, #15100f 10%, #231917 50%, #332421 100%);
+  --card-glow: rgba(244, 216, 192, 0.12);
 }
 
 .themeIndigo {
-  --card-bg: linear-gradient(150deg, #090c18 8%, #1a1435 52%, #26195a 100%);
-  --card-glow: rgba(187, 154, 247, 0.24);
+  --card-bg: linear-gradient(150deg, #140f0d 8%, #261714 52%, #3d221c 100%);
+  --card-glow: rgba(245, 200, 170, 0.24);
 }
 
 .mediaMeta,
@@ -1184,9 +1184,9 @@
 }
 
 .primaryCta {
-  background: linear-gradient(14deg, rgba(122, 0, 255, 0.25), rgba(16, 0, 255, 0.32));
+  background: linear-gradient(14deg, rgba(200, 111, 81, 0.28), rgba(226, 165, 108, 0.3));
   color: var(--white);
-  border-color: rgba(122, 0, 255, 0.35);
+  border-color: rgba(200, 111, 81, 0.35);
 }
 
 .secondaryCta {
