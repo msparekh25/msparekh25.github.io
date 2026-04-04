@@ -61,8 +61,7 @@ export function ContactForm({ recipientEmail }: ContactFormProps) {
   return (
     <div className={styles.contactFormWrap}>
       <p className={styles.formIntro}>
-        Send a note directly to <span>{recipientEmail}</span>. This form uses a working mail client fallback for now,
-        and it can be upgraded to EmailJS later if you want in-browser delivery.
+        Send a note directly to <span>{recipientEmail}</span>.
       </p>
 
       <form className={styles.contactForm} onSubmit={handleSubmit} noValidate>

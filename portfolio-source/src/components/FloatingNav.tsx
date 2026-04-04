@@ -24,33 +24,38 @@ export function FloatingNav({ items, links, clockText, onNavigate, theme, onTogg
       </div>
 
       <nav className={styles.topBarNav} aria-label="Section navigation">
-        {items.map((item) => {
-          const isActive = activeSectionId === item.id
+        <div className={styles.navPrimary}>
+          {items.map((item) => {
+            const isActive = activeSectionId === item.id
 
-          return (
-            <button
-              key={item.id}
-              type="button"
-              onClick={() => onNavigate(item.id as 'work' | 'experience' | 'toolkit' | 'contact')}
-              className={cn(styles.navButton, isActive && styles.navButtonActive)}
-              aria-current={isActive ? 'location' : undefined}
-            >
-              {item.label}
-            </button>
-          )
-        })}
-        <a className={styles.navButton} href={`mailto:${links.email}`}>
-          Email
-        </a>
-        <button
-          type="button"
-          className={styles.themeToggle}
-          onClick={onToggleTheme}
-          aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
-          aria-pressed={theme === 'light'}
-        >
-          {theme === 'dark' ? 'Light mode' : 'Dark mode'}
-        </button>
+            return (
+              <button
+                key={item.id}
+                type="button"
+                onClick={() => onNavigate(item.id as 'work' | 'experience' | 'toolkit' | 'contact')}
+                className={cn(styles.navButton, isActive && styles.navButtonActive)}
+                aria-current={isActive ? 'location' : undefined}
+              >
+                {item.label}
+              </button>
+            )
+          })}
+        </div>
+
+        <div className={styles.navUtility}>
+          <a className={styles.navButton} href={`mailto:${links.email}`}>
+            Email
+          </a>
+          <button
+            type="button"
+            className={styles.themeToggle}
+            onClick={onToggleTheme}
+            aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+            aria-pressed={theme === 'light'}
+          >
+            {theme === 'dark' ? 'Light mode' : 'Dark mode'}
+          </button>
+        </div>
       </nav>
     </header>
   )
