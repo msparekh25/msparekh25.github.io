@@ -391,7 +391,7 @@ export function HomePage({ theme, onToggleTheme }: HomePageProps) {
           <section id="contact" ref={setSectionRef('contact')} className={styles.contentSection}>
             <SectionHeader
               title="Contact"
-              subtitle="Open to Summer 2026 internships in quantitative research, trading, asset management, and financial analytics"
+              subtitle="Open to Summer 2026 internships in quantitative research, trading, asset management, and financial analytics — US and India markets."
               rightLabel="Reach Out"
             />
 
