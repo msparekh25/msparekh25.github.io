@@ -13,8 +13,8 @@ export function ContactSection({ links }: ContactSectionProps) {
         <label className={styles.microLabel}>Let’s Talk</label>
         <h3>Quantitative finance and analytics work, built for real decisions.</h3>
         <p>
-          I&apos;m interested in opportunities where modeling, structured analysis, and technical execution support
-          finance teams, operators, and leadership.
+          Open to Summer 2026 internships in quantitative research, trading, asset management, and financial
+          analytics — US and India markets.
         </p>
         <ContactForm recipientEmail={links.email} />
       </div>
@@ -24,6 +24,7 @@ export function ContactSection({ links }: ContactSectionProps) {
           <ContactRow label="Location" value={links.location} />
           <ContactRow label="Email" value={links.email} href={`mailto:${links.email}`} />
           {links.githubUrl ? <ContactRow label="GitHub" value={links.githubUrl} href={links.githubUrl} /> : null}
+          {links.linkedinUrl ? <ContactRow label="LinkedIn" value={links.linkedinUrl} href={links.linkedinUrl} /> : null}
           <ContactRow label="Resume" value="Mann_Parekh_Resume.pdf" href={links.resumeUrl} />
         </div>
       </div>

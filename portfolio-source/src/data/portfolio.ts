@@ -17,7 +17,7 @@ export const siteMeta = {
   subheadline:
     'I build financial models, executive-ready analysis, and AI-enabled workflows that turn complex data into clear decisions.',
   intro:
-    'Finance/FP&A-focused student at the University of Maryland with experience across capital planning, forecasting, ML systems, and research analytics.',
+    "Hi! I'm Mann, a third-year at the University of Maryland studying Applied Mathematics & Economics (May 2027). I focus on quantitative modeling, FP&A, and financial analytics — with a growing interest in trading, equity markets, and asset management spanning both the US (S&P 500, NYSE) and India (NSE/BSE, Nifty 50).",
 }
 
 export const navItems: NavItem[] = [
@@ -286,6 +286,87 @@ export const projects: ProjectItem[] = [
     ],
   },
   {
+    id: 'fire-summit-2024',
+    title: 'AI in Business Analytics — FIRE Summit 2024',
+    role: 'RESEARCH',
+    period: 'Aug 2023 — Dec 2024',
+    summary:
+      'Qualitative research study analyzing how business professionals perceive AI\'s role in analytics, market forecasting, and decision-making. Published at UMD FIRE Summit 2024.',
+    businessRelevance:
+      'Demonstrates research rigor, survey design, and qualitative analysis applied to real business analytics questions.',
+    tech: ['Research', 'Analytics', 'AI', 'Qualtrics', 'NVIVO'],
+    highlights: [
+      'Designed and distributed Qualtrics surveys to business professionals.',
+      'Analyzed qualitative data with NVIVO to surface themes around AI perception.',
+      'Presented findings at UMD FIRE Summit 2024.',
+    ],
+    links: [{ label: 'Read Paper →', href: 'https://doi.org/10.13016/vftk-d6xj' }],
+    featured: true,
+    detailSections: [
+      {
+        title: 'Research Focus',
+        bullets: [
+          'Investigated how business professionals perceive AI\'s effectiveness in analytics and market forecasting.',
+          'Used qualitative research methods including surveys and thematic coding.',
+        ],
+      },
+      {
+        title: 'Methodology',
+        bullets: [
+          'Designed Qualtrics survey instruments targeting business analytics professionals.',
+          'Applied NVIVO for thematic analysis and pattern identification.',
+        ],
+      },
+      {
+        title: 'Impact',
+        bullets: [
+          'Published and presented at UMD FIRE Summit 2024.',
+          'Contributed to understanding of AI adoption barriers in business contexts.',
+        ],
+      },
+    ],
+  },
+  {
+    id: 'retail-time-series',
+    title: 'Retail Time-Series & Holiday Effect Analysis',
+    role: 'PROJECT',
+    period: 'Jan 2024 — May 2024',
+    summary:
+      'Store and department-level demand forecasting with time-series decomposition and holiday effect modeling.',
+    businessRelevance:
+      'Applies quantitative forecasting techniques directly relevant to retail analytics, inventory planning, and demand prediction.',
+    tech: ['Python', 'statsmodels', 'Pandas', 'Forecasting'],
+    highlights: [
+      'Built time-series decomposition pipelines for store-level demand data.',
+      'Modeled holiday effects and seasonal patterns across departments.',
+      'Evaluated forecast accuracy using standard error metrics.',
+    ],
+    featured: true,
+    detailSections: [
+      {
+        title: 'Problem',
+        bullets: [
+          'Retail demand varies significantly across stores, departments, and holidays.',
+          'Accurate forecasting requires decomposing trend, seasonality, and holiday effects.',
+        ],
+      },
+      {
+        title: 'Approach',
+        bullets: [
+          'Applied time-series decomposition and holiday effect modeling with Python and statsmodels.',
+          'Analyzed store and department-level granularity for targeted demand predictions.',
+        ],
+      },
+      {
+        title: 'Results',
+        bullets: [
+          'Produced actionable demand forecasts with quantified holiday impact.',
+          'Demonstrated forecasting methodology transferable to finance and supply chain contexts.',
+        ],
+      },
+    ],
+  },
+  {
     id: 'blockchain-publication',
     title: 'Blockchain Research Publication',
     role: 'NHSJS Researcher',
@@ -399,6 +480,7 @@ export const links: ExternalLinks = {
   location: 'College Park, MD',
   resumeUrl: `${baseUrl}Mann_Parekh_Resume.pdf`,
   githubUrl: 'https://github.com/msparekh25',
+  linkedinUrl: 'https://linkedin.com/in/mann-parekh25',
 }
 
 export const resumeHighlights = [

@@ -195,9 +195,10 @@ export function HomePage({ theme, onToggleTheme }: HomePageProps) {
                     </h1>
                   </div>
                   <p className={styles.heroIntro}>
-                    Hi! I&apos;m <span>Mann</span>, a finance and analytics builder focused on FP&amp;A, quantitative
-                    modeling, and decision support. Currently studying at <span>University of Maryland</span> with
-                    experience across finance, AI, and research systems.
+                    Hi! I&apos;m <span>Mann</span>, a third-year at the University of Maryland studying Applied
+                    Mathematics &amp; Economics (May 2027). I focus on quantitative modeling, FP&amp;A, and financial
+                    analytics — with a growing interest in trading, equity markets, and asset management spanning both
+                    the US (S&amp;P 500, NYSE) and India (NSE/BSE, Nifty 50).
                   </p>
                   <div className={styles.heroLinks} style={heroLinksStyle}>
                     <a href={links.resumeUrl} target="_blank" rel="noopener noreferrer" className={styles.textLink}>
@@ -323,10 +324,22 @@ export function HomePage({ theme, onToggleTheme }: HomePageProps) {
                   value={metrics.map((metric) => metric.value).join(' | ')}
                   accent="blue"
                 />
+                <CodeLine
+                  index={10}
+                  label="markets[US]"
+                  value="NYSE | NASDAQ | S&P_500 | Fed_policy"
+                  accent="violet"
+                />
+                <CodeLine
+                  index={11}
+                  label="markets[IN]"
+                  value="NSE | BSE | Nifty_50 | SEBI"
+                  accent="violet"
+                />
               </CodePanel>
 
               <CodePanel title="analytics.py" badge="Data & AI" delayStyle={revealDelay(1)}>
-                <CodeLine index={1} label="stack" value="python, r, sql, pytorch, pandas" accent="teal" />
+                <CodeLine index={1} label="stack" value="python, r, sql, pytorch, pandas, matlab, latex" accent="teal" />
                 {dataSkills.slice(0, 8).map((skill, idx) => (
                   <CodeLine key={skill} index={idx + 2} label={`tools[${idx}]`} value={skill} />
                 ))}
@@ -378,7 +391,7 @@ export function HomePage({ theme, onToggleTheme }: HomePageProps) {
           <section id="contact" ref={setSectionRef('contact')} className={styles.contentSection}>
             <SectionHeader
               title="Contact"
-              subtitle="Open to finance, analytics, and strategic decision-support internships and roles"
+              subtitle="Open to Summer 2026 internships in quantitative research, trading, asset management, and financial analytics"
               rightLabel="Reach Out"
             />
 
