@@ -26,10 +26,6 @@ export function ContactSection({ links }: ContactSectionProps) {
           {links.githubUrl ? <ContactRow label="GitHub" value={links.githubUrl} href={links.githubUrl} /> : null}
           <ContactRow label="Resume" value="Mann_Parekh_Resume.pdf" href={links.resumeUrl} />
         </div>
-        <p className={styles.footerNote}>
-          Portfolio adapted in a JoshW-inspired style with accessible navigation, keyboard support, and routed case
-          study pages.
-        </p>
       </div>
     </div>
   )
