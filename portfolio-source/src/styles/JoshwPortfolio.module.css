@@ -19,10 +19,10 @@
   pointer-events: none;
   z-index: 0;
   background:
-    radial-gradient(circle at 74% 10%, rgba(255, 84, 117, 0.22), transparent 30%),
-    radial-gradient(circle at 16% 38%, rgba(255, 108, 139, 0.2), transparent 34%),
-    radial-gradient(circle at 66% 76%, rgba(255, 177, 167, 0.14), transparent 42%),
-    radial-gradient(circle at 40% 92%, rgba(255, 118, 127, 0.1), transparent 30%),
+    radial-gradient(circle at 74% 10%, rgba(100, 170, 230, 0.22), transparent 30%),
+    radial-gradient(circle at 16% 38%, rgba(120, 180, 235, 0.2), transparent 34%),
+    radial-gradient(circle at 66% 76%, rgba(160, 200, 240, 0.14), transparent 42%),
+    radial-gradient(circle at 40% 92%, rgba(130, 185, 235, 0.1), transparent 30%),
     linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent 18%);
 }
 
@@ -42,8 +42,8 @@
   height: 100%;
   width: 100%;
   transform-origin: left center;
-  background: linear-gradient(90deg, rgba(255, 236, 241, 0.88), rgba(255, 102, 137, 0.94), rgba(255, 146, 125, 0.92));
-  box-shadow: 0 0 24px rgba(255, 90, 116, 0.36);
+  background: linear-gradient(90deg, rgba(220, 235, 250, 0.88), rgba(120, 180, 235, 0.94), rgba(140, 195, 240, 0.92));
+  box-shadow: 0 0 24px rgba(100, 170, 230, 0.36);
   animation: loadingBarGrow 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
 }
 
@@ -487,32 +487,32 @@
 }
 
 .themeViolet {
-  --card-bg: linear-gradient(150deg, #15080f 8%, #3a1221 48%, #6a233b 100%);
+  --card-bg: linear-gradient(150deg, #080f18 8%, #122240 48%, #1e3a6a 100%);
   --card-glow: rgba(255, 108, 155, 0.36);
 }
 
 .themeBlue {
-  --card-bg: linear-gradient(150deg, #15080d 10%, #35111b 52%, #622432 100%);
+  --card-bg: linear-gradient(150deg, #080d15 10%, #111b38 52%, #243262 100%);
   --card-glow: rgba(255, 132, 148, 0.32);
 }
 
 .themeTeal {
-  --card-bg: linear-gradient(150deg, #16070b 8%, #371015 50%, #6d2427 100%);
+  --card-bg: linear-gradient(150deg, #070b16 8%, #101537 50%, #24276d 100%);
   --card-glow: rgba(255, 127, 129, 0.3);
 }
 
 .themePlum {
-  --card-bg: linear-gradient(150deg, #140811 10%, #321022 55%, #5f1e4d 100%);
+  --card-bg: linear-gradient(150deg, #081114 10%, #102238 55%, #1e4d5f 100%);
   --card-glow: rgba(255, 127, 170, 0.26);
 }
 
 .themeSlate {
-  --card-bg: linear-gradient(150deg, #12070b 10%, #251018 50%, #402031 100%);
+  --card-bg: linear-gradient(150deg, #070b12 10%, #101825 50%, #203140 100%);
   --card-glow: rgba(255, 189, 198, 0.18);
 }
 
 .themeIndigo {
-  --card-bg: linear-gradient(150deg, #11060d 8%, #29101d 52%, #4f1d38 100%);
+  --card-bg: linear-gradient(150deg, #060d11 8%, #101d29 52%, #1d384f 100%);
   --card-glow: rgba(255, 155, 149, 0.28);
 }
 
