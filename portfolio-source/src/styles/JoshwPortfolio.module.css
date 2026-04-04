@@ -1674,32 +1674,44 @@
   .topBarNav {
     width: 100%;
     gap: 8px;
-    flex-direction: column;
-    align-items: stretch;
+    flex-wrap: nowrap;
+    align-items: center;
+    overflow-x: auto;
+    padding: 2px 2px 4px;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x proximity;
+  }
+
+  .topBarNav::-webkit-scrollbar {
+    display: none;
   }
 
   .navPrimary,
   .navUtility {
-    width: 100%;
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
     gap: 8px;
+    flex: 0 0 auto;
   }
 
   .topChip,
   .navButton,
   .themeToggle {
+    flex: 0 0 auto;
     min-height: 32px;
     padding: 6px 12px;
     font-size: 0.8rem;
     white-space: nowrap;
+    scroll-snap-align: start;
   }
 
   .navPrimary > *,
   .navUtility > * {
-    width: 100%;
-    min-width: 0;
+    flex: 0 0 auto;
     justify-content: center;
+    scroll-snap-align: start;
   }
 
   .heroInner {
@@ -1823,11 +1835,6 @@
 
   .heroTextWrap {
     gap: 10px;
-  }
-
-  .navPrimary,
-  .navUtility {
-    grid-template-columns: 1fr;
   }
 
   .heroName h1 {
