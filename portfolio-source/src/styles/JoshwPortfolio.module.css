@@ -488,32 +488,32 @@
 
 .themeViolet {
   --card-bg: linear-gradient(150deg, #080f18 8%, #122240 48%, #1e3a6a 100%);
-  --card-glow: rgba(255, 108, 155, 0.36);
+  --card-glow: rgba(100, 155, 230, 0.36);
 }
 
 .themeBlue {
   --card-bg: linear-gradient(150deg, #080d15 10%, #111b38 52%, #243262 100%);
-  --card-glow: rgba(255, 132, 148, 0.32);
+  --card-glow: rgba(120, 165, 230, 0.32);
 }
 
 .themeTeal {
   --card-bg: linear-gradient(150deg, #070b16 8%, #101537 50%, #24276d 100%);
-  --card-glow: rgba(255, 127, 129, 0.3);
+  --card-glow: rgba(110, 160, 225, 0.3);
 }
 
 .themePlum {
   --card-bg: linear-gradient(150deg, #081114 10%, #102238 55%, #1e4d5f 100%);
-  --card-glow: rgba(255, 127, 170, 0.26);
+  --card-glow: rgba(110, 160, 220, 0.26);
 }
 
 .themeSlate {
   --card-bg: linear-gradient(150deg, #070b12 10%, #101825 50%, #203140 100%);
-  --card-glow: rgba(255, 189, 198, 0.18);
+  --card-glow: rgba(150, 190, 235, 0.18);
 }
 
 .themeIndigo {
   --card-bg: linear-gradient(150deg, #060d11 8%, #101d29 52%, #1d384f 100%);
-  --card-glow: rgba(255, 155, 149, 0.28);
+  --card-glow: rgba(130, 175, 230, 0.28);
 }
 
 .mediaMeta,
@@ -1035,15 +1035,15 @@
 }
 
 .codeDots span:nth-child(1) {
-  background: rgba(255, 108, 139, 0.92);
+  background: rgba(100, 170, 230, 0.92);
 }
 
 .codeDots span:nth-child(2) {
-  background: rgba(255, 162, 146, 0.92);
+  background: rgba(140, 195, 240, 0.92);
 }
 
 .codeDots span:nth-child(3) {
-  background: rgba(255, 122, 129, 0.88);
+  background: rgba(120, 180, 235, 0.88);
 }
 
 .codePanelHeader p,
@@ -1215,9 +1215,9 @@
 }
 
 .primaryCta {
-  background: linear-gradient(14deg, rgba(255, 90, 116, 0.34), rgba(255, 132, 148, 0.3));
+  background: linear-gradient(14deg, rgba(100, 170, 230, 0.34), rgba(120, 180, 235, 0.3));
   color: var(--white);
-  border-color: rgba(255, 90, 116, 0.4);
+  border-color: rgba(100, 170, 230, 0.4);
 }
 
 .secondaryCta {
@@ -1301,7 +1301,7 @@
 }
 
 .formError {
-  color: #ffb1db;
+  color: #b1d4ff;
   font-family: var(--font-sans);
   font-size: 0.82rem;
   line-height: 1.45;
